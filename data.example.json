@@ -1,0 +1,34 @@
+{
+  "homepage": {
+    "title": "Nama Situs | Judul Homepage",
+    "meta_description": "Deskripsi homepage netral.",
+    "h1": "Judul Utama Homepage",
+    "content_html": "<p>Konten homepage netral.</p>",
+    "image_src": "/img/banner.webp",
+    "canonical_url": "https://example.com/",
+    "amp_url": "#",
+    "noindex": false,
+    "lang": "id",
+    "lastmod": "YYYY-MM-DD HH-mm-ss",
+    "category": "homepage",
+    "keyword": "nama situs",
+    "logo_src": "/img/logo.webp",
+    "favicon_src": "/img/favicon.webp",
+    "banner_src": "/img/banner.webp",
+    "cta_url": "#"
+  },
+  "contoh-halaman": {
+    "title": "Judul Halaman",
+    "meta_description": "Deskripsi halaman netral.",
+    "h1": "Judul Utama Halaman",
+    "content_html": "<p>Konten halaman netral.</p>",
+    "image_src": "/img/banner.webp",
+    "canonical_url": "https://example.com/contoh-halaman",
+    "amp_url": "#",
+    "noindex": false,
+    "lang": "id",
+    "lastmod": "YYYY-MM-DD HH-mm-ss",
+    "category": "post",
+    "keyword": "label menu"
+  }
+}

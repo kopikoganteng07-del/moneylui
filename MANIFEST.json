@@ -1,0 +1,8 @@
+{
+  "template": "T1",
+  "files": {
+    "T1.php": "d9f835bc5d3cfc3e63862fc66be36cae5b0044363a0d650fdd4332764273bd02",
+    "data.example.json": "6d01ab32961755b1cdab99c790762e3a8c1fa1bb6304abbb892dc125157767e4",
+    "README.md": "ae7683edc90643967558800804480ac8208d506a859847a2185cc14f573eb26e"
+  }
+}
