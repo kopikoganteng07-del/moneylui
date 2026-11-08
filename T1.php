@@ -1,6 +1,5 @@
 <?php
 /**
- * Lemon-Grey - Template T1 (adaptasi dari VN Publisher T1 v3c)
  * ---------------------------------------------------------
  * Render engine SAMA untuk semua domain ber-template T1.
  * Baca /data/data.json (di-generate ulang oleh workflow "03 Generate Konten"
