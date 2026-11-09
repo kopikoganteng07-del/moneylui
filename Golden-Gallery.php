@@ -504,6 +504,35 @@ $faq = [
     .faq details[open] summary { background: linear-gradient(90deg, rgba(255, 145, 0, .09), transparent); }
     .faq-answer { padding: 0 17px 17px; color: #aaa8a1; font-size: 14px; }
 
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 22px;
+    }
+    .testimonial {
+      min-width: 0;
+      padding: 19px;
+      border: 1px solid rgba(255, 184, 27, .18);
+      border-radius: 13px;
+      background: linear-gradient(145deg, #1b1b1e, #0b0b0c);
+    }
+    .person { display: flex; align-items: center; gap: 11px; }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 38px;
+      border-radius: 50%;
+      color: #1b0d00;
+      background: linear-gradient(145deg, #ffe46c, #ec9100);
+      font-weight: 900;
+    }
+    .person h3 { margin: 0; font-size: 14px; }
+    .person p { margin: 1px 0 0; color: #8d8b86; font-size: 11px; }
+    blockquote { margin: 15px 0 0; color: #c5c3be; font-size: 13px; line-height: 1.65; }
+
     .site-footer {
       border-top: 1px solid rgba(255, 181, 24, .25);
       background: #050505;
@@ -672,7 +701,38 @@ $faq = [
         </div>
       </section>
 
-      <!-- testimoni -->
+      <section class="section" aria-labelledby="testimonial-title">
+        <p class="section-kicker">Ulasan pengguna</p>
+        <h2 id="testimonial-title">Testimoni Member</h2>
+        <div class="testimonials">
+          <article class="testimonial">
+            <div class="person"><div class="avatar">B</div><div><h3>Bagas</h3><p>Denpasar · 07 Oktober 2026</p></div></div>
+            <blockquote>“Informasinya langsung terlihat tanpa harus membuka banyak menu. Susunan kategorinya praktis, terutama saat diakses lewat smartphone.”</blockquote>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">R</div><div><h3>Rangga</h3><p>Bandung · 02 Oktober 2026</p></div></div>
+            <blockquote>“Tampilannya modern, menu mudah ditemukan, dan halaman tetap nyaman digunakan dari layar ponsel.”</blockquote>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">D</div><div><h3>Dimas</h3><p>Surabaya · 03 Oktober 2026</p></div></div>
+            <blockquote>“Saya lebih suka situs yang menunya tidak membingungkan. Informasi permainan di halaman ini cukup mudah dicari.”</blockquote>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">F</div><div><h3>Fajar</h3><p>Yogyakarta · 04 Oktober 2026</p></div></div>
+            <blockquote>“Variasi temanya menarik dan informasi fiturnya membantu sebelum menentukan permainan yang ingin dilihat.”</blockquote>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">A</div><div><h3>Aldi</h3><p>Medan · 05 Oktober 2026</p></div></div>
+            <blockquote>“Saya pribadi lebih nyaman menggunakan browser karena navigasinya ringkas dan tidak perlu memasang aplikasi tambahan.”</blockquote>
+          </article>
+          <article class="testimonial">
+            <div class="person"><div class="avatar">N</div><div><h3>Nando</h3><p>Makassar · 06 Oktober 2026</p></div></div>
+            <blockquote>“Konsep visualnya menarik. Bagian navigasi terasa sederhana dan informasi kategori tidak terlalu menumpuk.”</blockquote>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
     </div>
   </main>
 
