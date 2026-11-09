@@ -1,14 +1,14 @@
 {
   "template": "T1",
   "files": {
-    "T1.php": "3bd65a2d759fc96d7af18e3a9caa9680b06d1ccf1d651196bec98a2fa34ce145",
     "Golden-Gallery.php": "48295c7ca3f40192cb12fb871116b41fde51af61c315085b5666313b4678f5c6",
-    "data.example.json": "6d01ab32961755b1cdab99c790762e3a8c1fa1bb6304abbb892dc125157767e4",
     "README.md": "ae7683edc90643967558800804480ac8208d506a859847a2185cc14f573eb26e",
+    "T1.php": "3bd65a2d759fc96d7af18e3a9caa9680b06d1ccf1d651196bec98a2fa34ce145",
     "asset-game-1.jpg": "1d0839ce3e4bab733563aafc49a5ad2c52c6cd11f1e618d05ccfd4d3e279dd3a",
     "asset-game-2.jpg": "73403b70e50867f121adfff546ce4c637d1f739f31b148a004077e5103b575fc",
     "asset-game-3.jpg": "f7dae44b00b16437cd71b14ba64c5a2db29bc7e327bf678f29b971d3c2d3ec4e",
     "asset-game-4.jpg": "97388090cd8a0a7e45ebb4f2516dfd03c35df01e3cf3c88710b81ccc1458ae4a",
-    "asset-game-5.jpg": "71ac6996ef20b5348b9833f233b41fbb2489d656218828e3b36e05a62067457a"
+    "asset-game-5.jpg": "71ac6996ef20b5348b9833f233b41fbb2489d656218828e3b36e05a62067457a",
+    "data.example.json": "6d01ab32961755b1cdab99c790762e3a8c1fa1bb6304abbb892dc125157767e4"
   }
 }
