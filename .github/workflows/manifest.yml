@@ -1,0 +1,67 @@
+# Perbarui MANIFEST.json otomatis setiap ada perubahan di repo.
+# MANIFEST dipakai pipeline Bimasakti untuk memastikan berkas yang diunduh utuh dan versinya sama.
+# Simpan berkas ini di repo sebagai: .github/workflows/manifest.yml
+name: Perbarui MANIFEST
+
+on:
+  push:
+    paths-ignore:
+      - 'MANIFEST.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: manifest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Hitung ulang sha256
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, subprocess
+          # Semua berkas yang tercatat di git, kecuali MANIFEST.json sendiri dan folder .github.
+          daftar = subprocess.run(['git', 'ls-files', '-z'], capture_output=True, check=True).stdout.decode('utf-8').split('\0')
+          daftar = sorted(p for p in daftar if p and p != 'MANIFEST.json' and not p.startswith('.github/'))
+          lama = {}
+          if os.path.exists('MANIFEST.json'):
+              try:
+                  lama = json.load(open('MANIFEST.json', encoding='utf-8'))
+              except Exception:
+                  lama = {}
+          files = {}
+          for p in daftar:
+              with open(p, 'rb') as f:
+                  files[p] = hashlib.sha256(f.read()).hexdigest()
+          baru = {'template': lama.get('template', 'T1'), 'files': files}
+          with open('MANIFEST.json', 'w', encoding='utf-8', newline='\n') as f:
+              f.write(json.dumps(baru, indent=2, ensure_ascii=False) + '\n')
+          print(json.dumps(baru, indent=2))
+          PY
+
+      - name: Commit bila berubah
+        run: |
+          if git diff --quiet -- MANIFEST.json; then
+            echo "MANIFEST.json sudah sesuai, tidak ada commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add MANIFEST.json
+          git commit -m "Perbarui MANIFEST.json otomatis"
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            git pull --rebase
+          done
+          echo "Gagal push MANIFEST.json setelah 3 percobaan" >&2
+          exit 1
