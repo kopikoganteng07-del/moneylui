@@ -121,15 +121,6 @@ $faq = [
      'Periksa keaslian alamat situs, informasi pengelola, ketentuan penggunaan, keamanan akun, serta status perizinan yang dapat diverifikasi secara mandiri.'],
 ];
 
-// Pengganti testimoni: pernyataan situs, bukan ucapan orang.
-$tips = [
-    ['1', 'Tetapkan Batas Waktu', 'Tentukan berapa lama sesi bermain sebelum mulai, lalu patuhi batas tersebut walaupun suasana sedang seru.'],
-    ['2', 'Tentukan Anggaran Hiburan', 'Gunakan hanya dana yang memang disisihkan untuk hiburan, bukan uang kebutuhan harian atau tabungan.'],
-    ['3', 'Jangan Mengejar Kekalahan', 'Menaikkan taruhan untuk menutup kekalahan justru memperbesar risiko. Berhenti sejenak adalah pilihan yang bijak.'],
-    ['4', 'Jaga Keamanan Akun', 'Gunakan kata sandi yang kuat, jangan bagikan kode verifikasi, dan keluar dari akun setelah memakai perangkat bersama.'],
-    ['5', 'Gunakan Alamat Resmi', 'Akses ' . $namaSitus . ' hanya melalui alamat yang tercantum di halaman ini untuk menghindari situs tiruan.'],
-    ['6', 'Istirahat Secara Rutin', 'Beri jeda di antara sesi, tetap aktif bersosialisasi, dan jadikan permainan sekadar hiburan, bukan sumber penghasilan.'],
-];
 ?>
 <!doctype html>
 <html lang="<?= h($lang) ?>">
@@ -513,34 +504,6 @@ $tips = [
     .faq details[open] summary { background: linear-gradient(90deg, rgba(255, 145, 0, .09), transparent); }
     .faq-answer { padding: 0 17px 17px; color: #aaa8a1; font-size: 14px; }
 
-    .tips {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 15px;
-      margin-top: 22px;
-    }
-    .tip {
-      min-width: 0;
-      padding: 19px;
-      border: 1px solid rgba(255, 184, 27, .18);
-      border-radius: 13px;
-      background: linear-gradient(145deg, #1b1b1e, #0b0b0c);
-    }
-    .tip-head { display: flex; align-items: center; gap: 11px; }
-    .tip-num {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      flex: 0 0 38px;
-      border-radius: 50%;
-      color: #1b0d00;
-      background: linear-gradient(145deg, #ffe46c, #ec9100);
-      font-weight: 900;
-    }
-    .tip-head h3 { margin: 0; font-size: 14px; }
-    .tip p { margin: 15px 0 0; color: #c5c3be; font-size: 13px; line-height: 1.65; }
-
     .site-footer {
       border-top: 1px solid rgba(255, 181, 24, .25);
       background: #050505;
@@ -561,7 +524,6 @@ $tips = [
     @media (max-width: 1024px) {
       .main-nav a { padding-inline: 9px; font-size: 13px; }
       .product-shell { grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr); gap: 19px; padding: 19px; }
-      .tips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 820px) {
@@ -589,7 +551,6 @@ $tips = [
       .fact { padding-inline: 5px; }
       .rtp-grid { grid-template-columns: 1fr; }
       .section { margin-top: 18px; padding: 21px 15px; }
-      .tips { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -711,18 +672,7 @@ $tips = [
         </div>
       </section>
 
-      <section class="section" aria-labelledby="tips-title">
-        <p class="section-kicker">Panduan member</p>
-        <h2 id="tips-title">Tips Bermain Bertanggung Jawab</h2>
-        <div class="tips">
-<?php foreach ($tips as $t): ?>
-          <article class="tip">
-            <div class="tip-head"><div class="tip-num"><?= h($t[0]) ?></div><h3><?= h($t[1]) ?></h3></div>
-            <p><?= h($t[2]) ?></p>
-          </article>
-<?php endforeach; ?>
-        </div>
-      </section>
+      <!-- testimoni -->
     </div>
   </main>
 
