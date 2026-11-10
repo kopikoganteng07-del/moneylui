@@ -151,18 +151,27 @@ foreach ($allPosts as $slugMenu => $itemMenu) {
 // dikerjakan saat render, bukan saat generate.
 // Penggantian HANYA pada teks di luar tag, supaya nama situs yang kebetulan
 // berada di dalam atribut tidak ikut dirusak. Hanya satu kali per halaman.
-$isiArtikel = $page['content_html'];
-$namaSitus = !empty($homepage['keyword']) ? $homepage['keyword'] : explode('.', $domainName)[0];
+// Hanya bila diapit spasi / batas teks (aturan sama dengan template lain), supaya
+// teks polos halaman tetap sama dengan artikel: "Dora88," / "(Dora88)" / "Dora88x"
+// tidak ditautkan, sehingga live gate tidak membaca "Dora88 ," saat tag dibuang.
+$isiArtikel = (string)($page['content_html'] ?? '');
+$namaSitus = !empty($homepage['keyword']) ? (string)$homepage['keyword'] : explode('.', $domainName)[0];
 if ($namaSitus !== '' && $isiArtikel !== '') {
     $bagian = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
     $sudah = false;
+    $panjang = strlen($namaSitus);
     foreach ($bagian as $i => $b) {
         if ($sudah || $b === '' || $b[0] === '<') { continue; }
-        $pos = stripos($b, $namaSitus);
-        if ($pos !== false) {
-            $asli = substr($b, $pos, strlen($namaSitus));
-            $bagian[$i] = substr($b, 0, $pos) . '<a href="/">' . $asli . '</a>' . substr($b, $pos + strlen($namaSitus));
-            $sudah = true;
+        $mulai = 0;
+        while (($pos = stripos($b, $namaSitus, $mulai)) !== false) {
+            $sebelum = $pos === 0 ? ' ' : $b[$pos - 1];
+            $sesudah = ($pos + $panjang) >= strlen($b) ? ' ' : $b[$pos + $panjang];
+            if (ctype_space($sebelum) && ctype_space($sesudah)) {
+                $bagian[$i] = substr($b, 0, $pos) . '<a href="/">' . substr($b, $pos, $panjang) . '</a>' . substr($b, $pos + $panjang);
+                $sudah = true;
+                break;
+            }
+            $mulai = $pos + 1;
         }
     }
     if ($sudah) { $isiArtikel = implode('', $bagian); }
