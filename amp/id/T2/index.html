@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html amp lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+    <title>${titleFinal}</title>
+    <link rel="canonical" href="${canonicalUrl}">
+    <link rel="amphtml" href="${pagesUrl}/" />
+    <link rel="alternate" hreflang="id-id" href="${pagesUrl}/">
+    <link rel="alternate" hreflang="x-default" href="${pagesUrl}/">
+    <link rel="alternate" hreflang="id" href="${pagesUrl}/">
+    <link rel="alternate" href="${pagesUrl}/">
+    <link rel="alternate" hreflang="en" href="${pagesUrl}/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#24F205">
+    <meta name="robots" content="index,follow">
+    <meta name="description" content="${descFinal}">
+    <meta name="keywords" content="${keyword}">
+    <link rel="icon" type="image/png" href="${faviconUrl}">
+    <link rel="apple-touch-icon" href="${faviconUrl}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="${titleFinal}">
+    <meta property="og:description" content="${descFinal}">
+    <meta property="og:image" content="${bannerUrl}">
+    <meta property="og:image:alt" content="Logo ${keyword}">
+    <meta property="og:url" content="${pagesUrl}/">
+    <meta property="og:site_name" content="${keyword}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${titleFinal}">
+    <meta name="twitter:description" content="${descFinal}">
+    <meta name="twitter:image" content="${bannerUrl}">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "Article", "@id": "${pagesUrl}/#article", "headline": "${titleFinal}", "description": "${descFinal}", "image": {"@type": "ImageObject", "url": "${bannerUrl}", "width": 560, "height": 500}, "datePublished": "${datePublished}", "dateModified": "${dateModified}", "author": {"@type": "Person", "name": "${keyword}", "url": "${pagesUrl}"}, "publisher": {"@type": "Organization", "name": "${keyword}", "logo": {"@type": "ImageObject", "url": "${logoUrl}", "width": 160, "height": 44}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "${pagesUrl}"}}, {"@type": "WebSite", "@id": "${pagesUrl}#website", "url": "${pagesUrl}", "name": "${keyword}"}]}
+</script>
+    <style amp-boilerplate>
+        body {
+            -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+            animation: -amp-start 8s steps(1, end) 0s 1 normal both
+        }
+
+        @-webkit-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @-moz-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @-ms-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @-o-keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+
+        @keyframes -amp-start {
+            from {
+                visibility: hidden
+            }
+
+            to {
+                visibility: visible
+            }
+        }
+    </style>
+    <noscript>
+        <style amp-boilerplate>
+            body {
+                -webkit-animation: none;
+                -moz-animation: none;
+                -ms-animation: none;
+                animation: none
+            }
+        </style>
+    </noscript>
+
+    <!-- Custom AMP Styles -->
+    <style amp-custom>
+        :root {
+            --gold: #f8ca02;
+            --gold-light: #8dffc0;
+            --gold-dark: #062416;
+            --bg-dark: #050806;
+            --box-bg: rgba(6, 18, 12, 0.85);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(rgba(40, 243, 111, 0.15) 1px, transparent 1px),
+                radial-gradient(rgba(0, 212, 255, 0.09) 1px, transparent 1px);
+            background-size: 40px 40px, 80px 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 420px;
+            width: 100%;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: var(--box-bg);
+            border: 1px solid rgba(248, 202, 2, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(40, 243, 111, 0.15);
+        }
+
+        header {
+            text-align: center;
+        }
+
+        .logo-container {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .welcome h1 {
+            font-size: 16px;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(248, 202, 2, 0.4);
+        }
+
+        .marquee-box {
+            background: rgba(248, 202, 2, 0.1);
+            border: 1px solid rgba(248, 202, 2, 0.4);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .marquee-box p {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .banner {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-action {
+            display: block;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-login {
+            background: linear-gradient(145deg, #ea9f6b, #f8ca02);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-daftar {
+            background: linear-gradient(145deg, #f8ca02, #ea9f6b);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(248, 202, 2, 0.3);
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .button-grid a {
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 25px;
+            background: rgba(6, 20, 15, 0.9);
+            border: 1px solid rgba(248, 202, 2, 0.3);
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .seo-tag {
+            background: #061411;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px dashed rgba(0, 212, 255, 0.35);
+            font-size: 12px;
+            color: var(--gold);
+        }
+
+        .copyright {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            border-top: 1px solid rgba(40, 243, 111, 0.2);
+            padding-top: 12px;
+            line-height: 1.5;
+        }
+
+        .copyright strong {
+            color: var(--gold);
+        }
+
+        /* Accordion */
+        amp-accordion section {
+            border: 1px solid rgba(248, 202, 2, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        amp-accordion section>h2 {
+            cursor: pointer;
+            background: rgba(248, 202, 2, 0.1);
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        amp-accordion section[expanded]>h2::after {
+            content: "−";
+        }
+
+        amp-accordion section>h2::after {
+            content: "+";
+            font-size: 16px;
+            margin-left: 8px;
+        }
+
+        amp-accordion div[role="region"] {
+            font-size: 12px;
+            color: #ccc;
+            padding: 10px 14px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        amp-accordion div[role="region"] h1,
+        amp-accordion div[role="region"] h2,
+        amp-accordion div[role="region"] h3,
+        amp-accordion div[role="region"] h4 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+        <header>
+            <div class="logo-container">
+                <amp-img src="${logoUrl}" alt="Logo ${keyword}" width="230" height="60" layout="intrinsic"></amp-img>
+            </div>
+        </header>
+
+        <div class="welcome">
+            <h1>${keyword}</h1>
+        </div>
+
+        <div class="marquee-box">
+            <p>⚠️ <strong>Jangan Salah ${keyword}!</strong> Pastikan Anda bertransaksi di ${keyword} berlisensi resmi.
+                🛡️</p>
+        </div>
+
+        <div class="banner">
+            <amp-img src="${bannerUrl}" width="600" height="600" layout="responsive"
+                alt="${keyword} - Promo Spesial"></amp-img>
+        </div>
+
+        <a href="${ctaUrl}" target="_blank" rel="nofollow noopener" class="btn-action btn-login">LOGIN</a>
+        <a href="${ctaUrl}" target="_blank" rel="nofollow noopener" class="btn-action btn-daftar">DAFTAR</a>
+
+        <nav class="button-grid">
+            <a href="${ctaUrl}" target="_blank" rel="nofollow noopener">Slot Gacor</a>
+            <a href="${ctaUrl}" target="_blank" rel="nofollow noopener">Situs Gacor</a>
+            <a href="${ctaUrl}" target="_blank" rel="nofollow noopener">Situs Terpercaya</a>
+            <a href="${ctaUrl}" target="_blank" rel="nofollow noopener">${keyword} Resmi</a>
+        </nav>
+
+        <div class="seo-tag">
+            ${keyword}
+        </div>
+
+        <!-- Info lengkap - collapsed default, expand on click (AMP-valid) -->
+        <amp-accordion>
+            <section>
+                <h2>Info Lengkap ${keyword}</h2>
+                <div>
+                    ${cleanArtikel}
+                </div>
+            </section>
+        </amp-accordion>
+
+        <footer class="copyright">
+            &copy;${footerYear} <strong>${keyword}</strong><br>
+            <span style="font-size: 10px; color: rgba(255, 255, 255, 0.5);">Hak cipta dilindungi | 18+</span>
+        </footer>
+    </main>
+
+</body>
+
+</html>
