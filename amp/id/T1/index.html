@@ -21,12 +21,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@700&display=swap">
-<link rel="icon" type="image/png" href="${pagesUrl}/assets/img/favicon.webp">
+<link rel="icon" type="image/png" href="${faviconUrl}">
 
 <!-- Open Graph -->
 <meta property="og:title" content="${titleFinal}">
 <meta property="og:description" content="${descFinal}">
-<meta property="og:image" content="${pagesUrl}/assets/astro/banner.CnP7kgaE_2qrlDw-optimized.webp">
+<meta property="og:image" content="${bannerUrl}">
 <meta property="og:url" content="${pagesUrl}/">
 <meta property="og:type" content="website">
 
@@ -34,11 +34,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${titleFinal}">
 <meta name="twitter:description" content="${descFinal}">
-<meta name="twitter:image" content="${pagesUrl}/assets/astro/banner.CnP7kgaE_2qrlDw-optimized.webp">
+<meta name="twitter:image" content="${bannerUrl}">
 
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@graph": [{"@type": "Article", "@id": "${pagesUrl}/#article", "headline": "${titleFinal}", "description": "${descFinal}", "image": {"@type": "ImageObject", "url": "${pagesUrl}/assets/astro/banner.CnP7kgaE_2qrlDw-optimized.webp", "width": 560, "height": 500}, "datePublished": "${datePublished}", "dateModified": "${dateModified}", "author": {"@type": "Person", "name": "${keyword}", "url": "${pagesUrl}"}, "publisher": {"@type": "Organization", "name": "${keyword}", "logo": {"@type": "ImageObject", "url": "${logoUrl}", "width": 160, "height": 44}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "${pagesUrl}"}}, {"@type": "WebSite", "@id": "${pagesUrl}#website", "url": "${pagesUrl}", "name": "${keyword}"}]}
+{"@context": "https://schema.org", "@graph": [{"@type": "Article", "@id": "${pagesUrl}/#article", "headline": "${titleFinal}", "description": "${descFinal}", "image": {"@type": "ImageObject", "url": "${bannerUrl}", "width": 560, "height": 500}, "datePublished": "${datePublished}", "dateModified": "${dateModified}", "author": {"@type": "Person", "name": "${keyword}", "url": "${pagesUrl}"}, "publisher": {"@type": "Organization", "name": "${keyword}", "logo": {"@type": "ImageObject", "url": "${logoUrl}", "width": 160, "height": 44}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "${pagesUrl}"}}, {"@type": "WebSite", "@id": "${pagesUrl}#website", "url": "${pagesUrl}", "name": "${keyword}"}]}
 </script>
 
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
@@ -322,7 +322,7 @@ amp-accordion div[role="region"] h4 {
   </div>
 
   <a href="${ctaUrl}" target="_blank" rel="noopener noreferrer" class="banner-link">
-    <amp-img src="${pagesUrl}/assets/astro/banner.CnP7kgaE_2qrlDw-optimized.webp" alt="${keyword} - Promo Spesial" width="560" height="500" layout="responsive"></amp-img>
+    <amp-img src="${bannerUrl}" alt="${keyword} - Promo Spesial" width="560" height="500" layout="responsive"></amp-img>
   </a>
 
   <div class="badge-card">
