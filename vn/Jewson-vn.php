@@ -79,12 +79,39 @@ $postLain   = $allPosts;
 if (!$isHomepage) { unset($postLain[$id]); }
 
 $isiArtikel = (string)($page['content_html'] ?? '');
+// Nama domain / alamat situs ini yang tertulis di teks artikel ditampilkan sebagai keyword (tautan tetap).
+// 200 karakter awal teks artikel tidak diubah, supaya cuplikan pembanding live gate tetap sama.
+$domTeks = strtolower(preg_replace('/^www\./i', '', (string)$domainName));
+if ($domTeks !== '' && $namaSitus !== '' && $isiArtikel !== '') {
+    $polaDom = '~(?<![\w.-])(?:https?://)?(?:www\.)?' . preg_quote($domTeks, '~') . '(?:/(?![\w-]))?(?![\w-]|\.[\w-])~i';
+    $gantiDom = htmlspecialchars($namaSitus, ENT_QUOTES, 'UTF-8');
+    $bagianDom = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $teksAwal = '';
+    foreach ($bagianDom as $iDom => $tDom) {
+        if ($tDom === '') { continue; }
+        if ($tDom[0] === '<') { $teksAwal .= ' '; continue; }
+        if (preg_match_all($polaDom, $tDom, $mDom, PREG_OFFSET_CAPTURE)) {
+            $baruDom = ''; $posDom = 0;
+            foreach ($mDom[0] as $mm) {
+                $awalDom = trim(preg_replace('/\s+/u', ' ', html_entity_decode($teksAwal . substr($tDom, 0, $mm[1]), ENT_QUOTES, 'UTF-8')));
+                $nAwal = function_exists('mb_strlen') ? mb_strlen($awalDom, 'UTF-8') : preg_match_all('/./us', $awalDom);
+                $baruDom .= substr($tDom, $posDom, $mm[1] - $posDom) . ($nAwal >= 200 ? $gantiDom : $mm[0]);
+                $posDom = $mm[1] + strlen($mm[0]);
+            }
+            $bagianDom[$iDom] = $baruDom . substr($tDom, $posDom);
+        }
+        $teksAwal .= $tDom;
+    }
+    $isiArtikel = implode('', $bagianDom);
+}
 if ($namaSitus !== '' && $isiArtikel !== '') {
     $bagian = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
     $sudah = false;
+    $dalamA = false; // jangan menaut teks yang sudah berada di dalam <a>
     $panjang = strlen($namaSitus);
     foreach ($bagian as $i => $b) {
-        if ($sudah || $b === '' || $b[0] === '<') { continue; }
+        if ($b !== '' && $b[0] === '<') { if (preg_match('~^<a[\s>]~i', $b)) { $dalamA = true; } elseif (preg_match('~^</a\s*>~i', $b)) { $dalamA = false; } continue; }
+        if ($sudah || $b === '' || $dalamA) { continue; }
         $mulai = 0;
         while (($pos = stripos($b, $namaSitus, $mulai)) !== false) {
             $sebelum = $pos === 0 ? ' ' : $b[$pos - 1];
@@ -172,7 +199,7 @@ $testimoniMember = [
             'name' => $namaSitus,
             'telephone' => '08526 888888',
             'logo' => $origin . $logoSrc,
-            'email' => 'gacor138@gmail.com',
+            'email' => 'cs@' . $domainName,
         ],
         [
             '@type' => 'Article',
@@ -1907,12 +1934,12 @@ $testimoniMember = [
             }
         });
     </script>
-    <div class="CTAgacor138468516465" id="ctaMeme">
+    <div class="CTAstx468516465" id="ctaMeme">
         <a href="<?= h($ctaUrl) ?>" class="m-btn">ĐĂNG KÝ</a>
         <a href="<?= h($ctaUrl) ?>" class="m-btn">ĐĂNG NHẬP</a>
     </div>
     <style>
-        .CTAgacor138468516465 {
+        .CTAstx468516465 {
             display: flex;
             width: 100%;
             max-width: 2000px;
@@ -2767,7 +2794,7 @@ $testimoniMember = [
 
                     <br /><br /><br /><br />
                     <style>
-                        #testimonislotterbaikgacor138 {
+                        #testimonislotterbaikstx {
                             display: grid;
                             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                             gap: 20px;
@@ -2777,7 +2804,7 @@ $testimoniMember = [
                             font-family: 'Segoe UI', sans-serif
                         }
 
-                        #testimonislotterbaikgacor138 .t-card {
+                        #testimonislotterbaikstx .t-card {
                             position: relative;
                             background: #000;
                             border-radius: 15px;
@@ -2788,7 +2815,7 @@ $testimoniMember = [
                             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5)
                         }
 
-                        #testimonislotterbaikgacor138 .t-card::before {
+                        #testimonislotterbaikstx .t-card::before {
                             content: '';
                             position: absolute;
                             top: -50%;
@@ -2800,7 +2827,7 @@ $testimoniMember = [
                             z-index: -2
                         }
 
-                        #testimonislotterbaikgacor138 .t-card::after {
+                        #testimonislotterbaikstx .t-card::after {
                             content: '';
                             position: absolute;
                             top: -50%;
@@ -2813,7 +2840,7 @@ $testimoniMember = [
                             z-index: -2
                         }
 
-                        #testimonislotterbaikgacor138 .t-content {
+                        #testimonislotterbaikstx .t-content {
                             background: linear-gradient(160deg, #1a0033 0, #000 95%);
                             border-radius: 12px;
                             padding: 20px;
@@ -2825,7 +2852,7 @@ $testimoniMember = [
                             overflow: hidden
                         }
 
-                        #testimonislotterbaikgacor138 .t-content::before {
+                        #testimonislotterbaikstx .t-content::before {
                             content: '';
                             position: absolute;
                             top: 0;
@@ -2838,12 +2865,12 @@ $testimoniMember = [
                             pointer-events: none
                         }
 
-                        #testimonislotterbaikgacor138 .t-card:hover {
+                        #testimonislotterbaikstx .t-card:hover {
                             transform: scale(1.03);
                             box-shadow: 0 0 25px rgba(138, 43, 226, 0.6)
                         }
 
-                        #testimonislotterbaikKgacor138.t-head {
+                        #testimonislotterbaikKstx.t-head {
                             display: flex;
                             justify-content: space-between;
                             align-items: center;
@@ -2852,7 +2879,7 @@ $testimoniMember = [
                             margin-bottom: 15px
                         }
 
-                        #testimonislotterbaikgacor138 .t-name {
+                        #testimonislotterbaikstx .t-name {
                             color: #fff;
                             font-weight: 900;
                             font-size: 16px;
@@ -2860,13 +2887,13 @@ $testimoniMember = [
                             text-shadow: 0 0 5px #0047cc
                         }
 
-                        #testimonislotterbaikgacor138 .t-loc {
+                        #testimonislotterbaikstx .t-loc {
                             color: #bf55ec;
                             font-size: 12px;
                             font-weight: 700
                         }
 
-                        #testimonislotterbaikgacor138 .t-text {
+                        #testimonislotterbaikstx .t-text {
                             color: #e0e0e0;
                             font-size: 14px;
                             line-height: 1.6;
@@ -2900,7 +2927,7 @@ $testimoniMember = [
                     </style>
                     <script>
                         document.addEventListener("DOMContentLoaded", (function () {
-                            const e = document.querySelectorAll("#testimonislotterbaikgacor138 .t-card");
+                            const e = document.querySelectorAll("#testimonislotterbaikstx .t-card");
                             e.forEach(((e, t) => {
                                 e.style.opacity = "0", e.style.transform = "translateY(20px)",
                                     setTimeout((() => {
@@ -2936,7 +2963,7 @@ $testimoniMember = [
                     }
 
                     .wrapstarlinkalternatif h2,
-                    .judul-wrapper-gacor138 {
+                    .judul-wrapper-stx {
                         margin: 0 0 20px;
                         font-size: 28px;
                         font-weight: 900;
