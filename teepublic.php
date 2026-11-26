@@ -90,12 +90,39 @@ if (!$isHomepage) { unset($postLain[$id]); }
 // Hanya bila diapit spasi / batas teks, supaya teks polos halaman tetap sama dengan artikel
 // (misalnya "Cinta77," tidak berubah menjadi "Cinta77 ," saat tag dibuang).
 $isiArtikel = (string)($page['content_html'] ?? '');
+// Nama domain / alamat situs ini yang tertulis di teks artikel ditampilkan sebagai keyword (tautan tetap).
+// 200 karakter awal teks artikel tidak diubah, supaya cuplikan pembanding live gate tetap sama.
+$domTeks = strtolower(preg_replace('/^www\./i', '', (string)$domainName));
+if ($domTeks !== '' && $namaSitus !== '' && $isiArtikel !== '') {
+    $polaDom = '~(?<![\w.-])(?:https?://)?(?:www\.)?' . preg_quote($domTeks, '~') . '(?:/(?![\w-]))?(?![\w-]|\.[\w-])~i';
+    $gantiDom = htmlspecialchars($namaSitus, ENT_QUOTES, 'UTF-8');
+    $bagianDom = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $teksAwal = '';
+    foreach ($bagianDom as $iDom => $tDom) {
+        if ($tDom === '') { continue; }
+        if ($tDom[0] === '<') { $teksAwal .= ' '; continue; }
+        if (preg_match_all($polaDom, $tDom, $mDom, PREG_OFFSET_CAPTURE)) {
+            $baruDom = ''; $posDom = 0;
+            foreach ($mDom[0] as $mm) {
+                $awalDom = trim(preg_replace('/\s+/u', ' ', html_entity_decode($teksAwal . substr($tDom, 0, $mm[1]), ENT_QUOTES, 'UTF-8')));
+                $nAwal = function_exists('mb_strlen') ? mb_strlen($awalDom, 'UTF-8') : preg_match_all('/./us', $awalDom);
+                $baruDom .= substr($tDom, $posDom, $mm[1] - $posDom) . ($nAwal >= 200 ? $gantiDom : $mm[0]);
+                $posDom = $mm[1] + strlen($mm[0]);
+            }
+            $bagianDom[$iDom] = $baruDom . substr($tDom, $posDom);
+        }
+        $teksAwal .= $tDom;
+    }
+    $isiArtikel = implode('', $bagianDom);
+}
 if ($namaSitus !== '' && $isiArtikel !== '') {
     $bagian = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
     $sudah = false;
+    $dalamA = false; // jangan menaut teks yang sudah berada di dalam <a>
     $panjang = strlen($namaSitus);
     foreach ($bagian as $i => $b) {
-        if ($sudah || $b === '' || $b[0] === '<') { continue; }
+        if ($b !== '' && $b[0] === '<') { if (preg_match('~^<a[\s>]~i', $b)) { $dalamA = true; } elseif (preg_match('~^</a\s*>~i', $b)) { $dalamA = false; } continue; }
+        if ($sudah || $b === '' || $dalamA) { continue; }
         $mulai = 0;
         while (($pos = stripos($b, $namaSitus, $mulai)) !== false) {
             $sebelum = $pos === 0 ? ' ' : $b[$pos - 1];
@@ -184,8 +211,8 @@ $faq = array_map(function ($q) use ($namaSitus) { return [str_ireplace('kuda777'
       trackLongTasks: true,
       defaultPrivacyLevel: 'mask-user-input',
       allowedTracingUrls: [
-        'https://kuda777id.org/',
-        'https://kuda777id.org/'
+        '<?= h($origin) ?>/',
+        '<?= h($origin) ?>/'
       ]
     });
   })
@@ -222,7 +249,7 @@ $faq = array_map(function ($q) use ($namaSitus) { return [str_ireplace('kuda777'
   window.dataLayer = window.dataLayer || [];
 </script>
 <script>
-  dataLayer.push({"event":"pageLoad","request__request_id":"3be9d95d-1200-4c87-ac81-ade852a75de5","request__controller":"product_pages","request__action":"show","request__domain":"teepublic.com","request__base_url":"https://kuda777id.org/","request__ab_tests":{"con-3051-pasf":"default"},"request__safe_search":true,"request__referring_affiliate_id":null,"request__referring_affiliate_ua_id":null,"request__referring_affiliate_ga4_id":null,"request__referring_affiliate_network_id":null,"locale__locale":"en","locale__currency_iso":"USD","locale__gdprcookie":"all","locale__euvisitor":false,"cart__items":[],"design__design_id":74165272,"design__canvas_id":1,"design__product_id":357,"design__parent_id":"74165272D1V","design__variant_id":"19G79A8C","design__variant":"{\"Gender\":\"Male Fit\",\"Style\":\"Classic T-Shirt\",\"Color\":\"Red\"}","design__mock_image":"https://kuda777id.org/img/banner1.jpg","design__url":"https://kuda777id.org/","design__canvas":"T-Shirt","design__canvas_canonical_name":"T-Shirt","design__design_title":"Temukan Kuda777 dengan promo gaming terbaik, bonus gratis, dan rewards bernilai tinggi untuk memaksimalkan setiap pengalaman bermain Anda.","design__price":23.0,"design__price_usd":23.0,"design__price_in_currency":23.0,"design__primary_tag":"george-kittle","design__owner_type":"designer","design__owner_id":6075586,"design__on_sale":false,"design__currency_iso":"USD","design__feed_sku":null,"design__designer_name":"Hey siriusly","design__designer_ua_id":null,"design__designer_ga4_id":null,"design__marketing_sku":"21599512JT2365GPK8"})
+  dataLayer.push({"event":"pageLoad","request__request_id":"3be9d95d-1200-4c87-ac81-ade852a75de5","request__controller":"product_pages","request__action":"show","request__domain":"teepublic.com","request__base_url":"<?= h($origin) ?>/","request__ab_tests":{"con-3051-pasf":"default"},"request__safe_search":true,"request__referring_affiliate_id":null,"request__referring_affiliate_ua_id":null,"request__referring_affiliate_ga4_id":null,"request__referring_affiliate_network_id":null,"locale__locale":"en","locale__currency_iso":"USD","locale__gdprcookie":"all","locale__euvisitor":false,"cart__items":[],"design__design_id":74165272,"design__canvas_id":1,"design__product_id":357,"design__parent_id":"74165272D1V","design__variant_id":"19G79A8C","design__variant":"{\"Gender\":\"Male Fit\",\"Style\":\"Classic T-Shirt\",\"Color\":\"Red\"}","design__mock_image":"<?= h((strpos((string)$bannerSrc, 'http') === 0) ? $bannerSrc : $origin . $bannerSrc) ?>","design__url":"<?= h($origin) ?>/","design__canvas":"T-Shirt","design__canvas_canonical_name":"T-Shirt","design__design_title":"Temukan <?= h($namaSitus) ?> dengan promo gaming terbaik, bonus gratis, dan rewards bernilai tinggi untuk memaksimalkan setiap pengalaman bermain Anda.","design__price":23.0,"design__price_usd":23.0,"design__price_in_currency":23.0,"design__primary_tag":"george-kittle","design__owner_type":"designer","design__owner_id":6075586,"design__on_sale":false,"design__currency_iso":"USD","design__feed_sku":null,"design__designer_name":"Hey siriusly","design__designer_ua_id":null,"design__designer_ga4_id":null,"design__marketing_sku":"21599512JT2365GPK8"})
 </script>
 <script>
   window.dataLayer.push({
@@ -235,11 +262,11 @@ $faq = array_map(function ($q) use ($namaSitus) { return [str_ireplace('kuda777'
           "product_id": "357",
           "price": "23.0",
           "price_usd": "23.0",
-          "name": "Kuda777",
+          "name": "<?= h($namaSitus) ?>",
           "id": "74165272",
           "brand": "Hey siriusly",
           "design_color": "Red",
-          "product_image": "https://kuda777id.org/img/banner1.jpg",
+          "product_image": "<?= h((strpos((string)$bannerSrc, 'http') === 0) ? $bannerSrc : $origin . $bannerSrc) ?>",
           "variant_id": "19G79A8C",
           "design_owner_id": "6075586",
           "design_primary_tag": "george-kittle",
@@ -247,7 +274,7 @@ $faq = array_map(function ($q) use ($namaSitus) { return [str_ireplace('kuda777'
           "variant": '{"Gender":"Male Fit","Style":"Classic T-Shirt","Color":"Red"}',
             "dimension34": '21599512JT2365GPK8',
             "dimension37": 'false',
-            "dimension42": 'https://kuda777id.org/img/banner1.jpg',
+            "dimension42": '<?= h((strpos((string)$bannerSrc, 'http') === 0) ? $bannerSrc : $origin . $bannerSrc) ?>',
             "dimension44": 'george-kittle',
             "dimension46": '6075586',
             "dimension47": 'designer'
@@ -287,7 +314,7 @@ $faq = array_map(function ($q) use ($namaSitus) { return [str_ireplace('kuda777'
 <p>KETIK DI GOOGLE '<?= h($namaSitus) ?>'</p>
 </div>
 </div>
-<input type="text" name="query" id="jsAutoCompleteHeader" class="form__control m-header__search-field jsHeadSearchField gtmSearchHeaderQuery" data-searchUrl="/search/autocomplete" data-trendingSearchResults="[{&quot;result&quot;:&quot;Kuda777 SITUS SLOT&quot;,&quot;score&quot;:38.23},{&quot;result&quot;:&quot;SLOT ONLINE resmi&quot;,&quot;score&quot;:18.57},{&quot;result&quot;:&quot;hadiah togel terbesar&quot;,&quot;score&quot;:17.06},{&quot;result&quot;:&quot;togel terpercaya&quot;,&quot;score&quot;:16.81},{&quot;result&quot;:&quot;Kuda777 daftar&quot;,&quot;score&quot;:16.45},{&quot;result&quot;:&quot;link alternatif Kuda777&quot;,&quot;score&quot;:7.38},{&quot;result&quot;:&quot;bad bunny&quot;,&quot;score&quot;:7.13},{&quot;result&quot;:&quot;jane goodall&quot;,&quot;score&quot;:6.8},{&quot;result&quot;:&quot;bad knees&quot;,&quot;score&quot;:6.16},{&quot;result&quot;:&quot;kindness is punk&quot;,&quot;score&quot;:5.91},{&quot;result&quot;:&quot;aunt tifa&quot;,&quot;score&quot;:5.86},{&quot;result&quot;:&quot;steelers football&quot;,&quot;score&quot;:5.7},{&quot;result&quot;:&quot;eyepatch rev&quot;,&quot;score&quot;:4.9},{&quot;result&quot;:&quot;eagles&quot;,&quot;score&quot;:4.41},{&quot;result&quot;:&quot;jaxson dart&quot;,&quot;score&quot;:4.02},{&quot;result&quot;:&quot;buffalo bills&quot;,&quot;score&quot;:3.94},{&quot;result&quot;:&quot;dungeon crawler carl&quot;,&quot;score&quot;:3.89},{&quot;result&quot;:&quot;doctor who&quot;,&quot;score&quot;:3.87},{&quot;result&quot;:&quot;government shutdown&quot;,&quot;score&quot;:3.61},{&quot;result&quot;:&quot;ankylosaurus&quot;,&quot;score&quot;:3.51},{&quot;result&quot;:&quot;chicago bears&quot;,&quot;score&quot;:3.34},{&quot;result&quot;:&quot;crucial catch&quot;,&quot;score&quot;:2.9},{&quot;result&quot;:&quot;sumud flotilla&quot;,&quot;score&quot;:2.82},{&quot;result&quot;:&quot;funny hardhat&quot;,&quot;score&quot;:2.29},{&quot;result&quot;:&quot;haunted by 67&quot;,&quot;score&quot;:2.21},{&quot;result&quot;:&quot;ozzy osbourne&quot;,&quot;score&quot;:2.2},{&quot;result&quot;:&quot;buffalo bills football team&quot;,&quot;score&quot;:2.13},{&quot;result&quot;:&quot;i am aunt tifa&quot;,&quot;score&quot;:2.04},{&quot;result&quot;:&quot;the river city&quot;,&quot;score&quot;:2.0},{&quot;result&quot;:&quot;super mario&quot;,&quot;score&quot;:1.99},{&quot;result&quot;:&quot;rocky horror&quot;,&quot;score&quot;:1.99},{&quot;result&quot;:&quot;halloween 3&quot;,&quot;score&quot;:1.82},{&quot;result&quot;:&quot;michael jordan&quot;,&quot;score&quot;:1.81},{&quot;result&quot;:&quot;creepshow&quot;,&quot;score&quot;:1.81},{&quot;result&quot;:&quot;scott hall&quot;,&quot;score&quot;:1.8},{&quot;result&quot;:&quot;boston celtics&quot;,&quot;score&quot;:1.79},{&quot;result&quot;:&quot;3i atlas&quot;,&quot;score&quot;:1.77},{&quot;result&quot;:&quot;same shit different&quot;,&quot;score&quot;:1.7},{&quot;result&quot;:&quot;chinga la migra&quot;,&quot;score&quot;:1.62},{&quot;result&quot;:&quot;radical left&quot;,&quot;score&quot;:1.61},{&quot;result&quot;:&quot;digimon&quot;,&quot;score&quot;:1.6},{&quot;result&quot;:&quot;halloween cat&quot;,&quot;score&quot;:1.6},{&quot;result&quot;:&quot;tropic thunder&quot;,&quot;score&quot;:1.42},{&quot;result&quot;:&quot;no kings anti trump&quot;,&quot;score&quot;:1.41},{&quot;result&quot;:&quot;no concert today&quot;,&quot;score&quot;:1.41},{&quot;result&quot;:&quot;the life of a showgirl&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;seven samurai&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;do not harm authenticc since mmxx take&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;acdc&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;ohio state buckeyes&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;borderlands&quot;,&quot;score&quot;:1.39},{&quot;result&quot;:&quot;star trek&quot;,&quot;score&quot;:1.37},{&quot;result&quot;:&quot;80s movies&quot;,&quot;score&quot;:1.29},{&quot;result&quot;:&quot;max verstappen&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;robocop&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;siempre antifascista&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;pelosi funny&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;pete rose&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;macho man fred savage&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;youngboy masa&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;dirty dancing&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;las vegas aces&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;syracuse&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;war games&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;johnny cash&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;surfing&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;steelers ireland&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;iron man&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;attack on titan&quot;,&quot;score&quot;:1.18},{&quot;result&quot;:&quot;michael myers&quot;,&quot;score&quot;:1.13},{&quot;result&quot;:&quot;resident evil&quot;,&quot;score&quot;:1.1},{&quot;result&quot;:&quot;wait what&quot;,&quot;score&quot;:1.05},{&quot;result&quot;:&quot;wkrp in cincinnati&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;dodgers baseball&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;cartoon network&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;blue velvwt&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;tombstone&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;can i lick it&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;contra&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;george kittle&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;rick and morty&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;knicks basketball&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;blondie band&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;cyberpunk edgerunners&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;drake rapper&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;benito bowl&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;battlefront 2&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;chad powers&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;slapshot&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;book lovers&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;modest mouse&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;new balance&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;sunami&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;youngboy&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;rock climbing&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;beanie&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;halloweentown est 1998&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;dnd warlock&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;definitely not a cop&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;i love fall most of all&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;renathornton&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;retro philadelphia phillies&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;no problemo&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;weed&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;school bus driver&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;chinga tu maga&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;nj devils&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;sci fi&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;possum&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;replacements band&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;spite&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;political protest&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;scream&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;dad&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;red bull&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;80s tv&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;pabst blue ribbon&quot;,&quot;score&quot;:0.99},{&quot;result&quot;:&quot;pittsburgh steelers&quot;,&quot;score&quot;:0.93},{&quot;result&quot;:&quot;cleveland browns&quot;,&quot;score&quot;:0.9},{&quot;result&quot;:&quot;eyepatch reveille&quot;,&quot;score&quot;:0.85},{&quot;result&quot;:&quot;rams football&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;engineer&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;road house&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;pigeon&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;lock em up&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;patsymahon&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;jesus meme&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;darmok and jalad&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;enemy within&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;unreliable narrator&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;miller high life&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;bernie parent - philadelphia blazers&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;black keys&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;rhino&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;gibson guitar&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;disney land&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;oddworld&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;mike mussina in baltimore orioles&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dressed to impress roblox&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ryan bingham&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;emmet otter&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;zildjian cymbals&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;no you hang up&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;luigi&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ace ventura&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;tyler thecreator&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;berserk anime&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;grandpa&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the growlers&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the warning&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;care bear&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;protect ya neck&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;poison&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;jason&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;fernando valenzuela&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;pulseretail&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;show business&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;trailer park&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;terry mclaurin washington scary terry&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;liliaamer1&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;9/11&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;rey mysterio&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;demon slayer inosuke&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ally&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;german shepherd&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;game of thrones&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;lebron&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dance&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;returns and refund&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;glacier national park montana&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;investor&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;miller lite&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;casper&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;terry funk&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;big boy&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ny yankees&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;super furry animals&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;one lonely beastie i be&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dismember band&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;bluey lions&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;revenge of the ninja&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;silence ofthe lambs dog&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dia de los muertos sugar skull&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;don&#39;t tell mom the babysitter&#39;s dead&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;siouxie and banshees&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;fraggle rock  long sleeved&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;halloween characters&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;river city&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;retro kansas city football vintage chiefs est 1960&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the life of an eldest daughter&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;manual transmission&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;pete rose vintage&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;light yellow tshirt with green lini g&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;international harvester&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;black cats&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;wonder twins&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;volbeat band&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;smiley&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;they&#39;re coming to get you barbara&quot;,&quot;score&quot;:0.8}]" data-maxresults="6" data-animated="true" data-navigation--header-target="searchField" data-search-history="true" data-search-history-ca-show-notice="false" data-search-history-clear="<span class=&quot;teepublicon teepublicon--color-orange-400 teepublicon-background--transparent&quot;><svg xmlns=&quot;https://www.w3.org/2000/svg&quot; viewbox=&quot;0 0 48 48&quot; width=&quot;16&quot; height=&quot;16&quot; focusable=&quot;false&quot; aria-hidden=&quot;true&quot;><path d=&quot;M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z&quot;></path></svg></span>" data-search-history-clock="<span class=&quot;teepublicon teepublicon--color-orange-400 teepublicon-background--transparent&quot;><svg viewbox=&quot;0 0 48 48&quot; xmlns=&quot;https://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; focusable=&quot;false&quot; aria-hidden=&quot;true&quot;>
+<input type="text" name="query" id="jsAutoCompleteHeader" class="form__control m-header__search-field jsHeadSearchField gtmSearchHeaderQuery" data-searchUrl="/search/autocomplete" data-trendingSearchResults="[{&quot;result&quot;:&quot;<?= h($namaSitus) ?> SITUS SLOT&quot;,&quot;score&quot;:38.23},{&quot;result&quot;:&quot;SLOT ONLINE resmi&quot;,&quot;score&quot;:18.57},{&quot;result&quot;:&quot;hadiah togel terbesar&quot;,&quot;score&quot;:17.06},{&quot;result&quot;:&quot;togel terpercaya&quot;,&quot;score&quot;:16.81},{&quot;result&quot;:&quot;<?= h($namaSitus) ?> daftar&quot;,&quot;score&quot;:16.45},{&quot;result&quot;:&quot;link alternatif <?= h($namaSitus) ?>&quot;,&quot;score&quot;:7.38},{&quot;result&quot;:&quot;bad bunny&quot;,&quot;score&quot;:7.13},{&quot;result&quot;:&quot;jane goodall&quot;,&quot;score&quot;:6.8},{&quot;result&quot;:&quot;bad knees&quot;,&quot;score&quot;:6.16},{&quot;result&quot;:&quot;kindness is punk&quot;,&quot;score&quot;:5.91},{&quot;result&quot;:&quot;aunt tifa&quot;,&quot;score&quot;:5.86},{&quot;result&quot;:&quot;steelers football&quot;,&quot;score&quot;:5.7},{&quot;result&quot;:&quot;eyepatch rev&quot;,&quot;score&quot;:4.9},{&quot;result&quot;:&quot;eagles&quot;,&quot;score&quot;:4.41},{&quot;result&quot;:&quot;jaxson dart&quot;,&quot;score&quot;:4.02},{&quot;result&quot;:&quot;buffalo bills&quot;,&quot;score&quot;:3.94},{&quot;result&quot;:&quot;dungeon crawler carl&quot;,&quot;score&quot;:3.89},{&quot;result&quot;:&quot;doctor who&quot;,&quot;score&quot;:3.87},{&quot;result&quot;:&quot;government shutdown&quot;,&quot;score&quot;:3.61},{&quot;result&quot;:&quot;ankylosaurus&quot;,&quot;score&quot;:3.51},{&quot;result&quot;:&quot;chicago bears&quot;,&quot;score&quot;:3.34},{&quot;result&quot;:&quot;crucial catch&quot;,&quot;score&quot;:2.9},{&quot;result&quot;:&quot;sumud flotilla&quot;,&quot;score&quot;:2.82},{&quot;result&quot;:&quot;funny hardhat&quot;,&quot;score&quot;:2.29},{&quot;result&quot;:&quot;haunted by 67&quot;,&quot;score&quot;:2.21},{&quot;result&quot;:&quot;ozzy osbourne&quot;,&quot;score&quot;:2.2},{&quot;result&quot;:&quot;buffalo bills football team&quot;,&quot;score&quot;:2.13},{&quot;result&quot;:&quot;i am aunt tifa&quot;,&quot;score&quot;:2.04},{&quot;result&quot;:&quot;the river city&quot;,&quot;score&quot;:2.0},{&quot;result&quot;:&quot;super mario&quot;,&quot;score&quot;:1.99},{&quot;result&quot;:&quot;rocky horror&quot;,&quot;score&quot;:1.99},{&quot;result&quot;:&quot;halloween 3&quot;,&quot;score&quot;:1.82},{&quot;result&quot;:&quot;michael jordan&quot;,&quot;score&quot;:1.81},{&quot;result&quot;:&quot;creepshow&quot;,&quot;score&quot;:1.81},{&quot;result&quot;:&quot;scott hall&quot;,&quot;score&quot;:1.8},{&quot;result&quot;:&quot;boston celtics&quot;,&quot;score&quot;:1.79},{&quot;result&quot;:&quot;3i atlas&quot;,&quot;score&quot;:1.77},{&quot;result&quot;:&quot;same shit different&quot;,&quot;score&quot;:1.7},{&quot;result&quot;:&quot;chinga la migra&quot;,&quot;score&quot;:1.62},{&quot;result&quot;:&quot;radical left&quot;,&quot;score&quot;:1.61},{&quot;result&quot;:&quot;digimon&quot;,&quot;score&quot;:1.6},{&quot;result&quot;:&quot;halloween cat&quot;,&quot;score&quot;:1.6},{&quot;result&quot;:&quot;tropic thunder&quot;,&quot;score&quot;:1.42},{&quot;result&quot;:&quot;no kings anti trump&quot;,&quot;score&quot;:1.41},{&quot;result&quot;:&quot;no concert today&quot;,&quot;score&quot;:1.41},{&quot;result&quot;:&quot;the life of a showgirl&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;seven samurai&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;do not harm authenticc since mmxx take&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;acdc&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;ohio state buckeyes&quot;,&quot;score&quot;:1.4},{&quot;result&quot;:&quot;borderlands&quot;,&quot;score&quot;:1.39},{&quot;result&quot;:&quot;star trek&quot;,&quot;score&quot;:1.37},{&quot;result&quot;:&quot;80s movies&quot;,&quot;score&quot;:1.29},{&quot;result&quot;:&quot;max verstappen&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;robocop&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;siempre antifascista&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;pelosi funny&quot;,&quot;score&quot;:1.21},{&quot;result&quot;:&quot;pete rose&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;macho man fred savage&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;youngboy masa&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;dirty dancing&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;las vegas aces&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;syracuse&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;war games&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;johnny cash&quot;,&quot;score&quot;:1.2},{&quot;result&quot;:&quot;surfing&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;steelers ireland&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;iron man&quot;,&quot;score&quot;:1.19},{&quot;result&quot;:&quot;attack on titan&quot;,&quot;score&quot;:1.18},{&quot;result&quot;:&quot;michael myers&quot;,&quot;score&quot;:1.13},{&quot;result&quot;:&quot;resident evil&quot;,&quot;score&quot;:1.1},{&quot;result&quot;:&quot;wait what&quot;,&quot;score&quot;:1.05},{&quot;result&quot;:&quot;wkrp in cincinnati&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;dodgers baseball&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;cartoon network&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;blue velvwt&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;tombstone&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;can i lick it&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;contra&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;george kittle&quot;,&quot;score&quot;:1.01},{&quot;result&quot;:&quot;rick and morty&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;knicks basketball&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;blondie band&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;cyberpunk edgerunners&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;drake rapper&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;benito bowl&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;battlefront 2&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;chad powers&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;slapshot&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;book lovers&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;modest mouse&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;new balance&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;sunami&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;youngboy&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;rock climbing&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;beanie&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;halloweentown est 1998&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;dnd warlock&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;definitely not a cop&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;i love fall most of all&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;renathornton&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;retro philadelphia phillies&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;no problemo&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;weed&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;school bus driver&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;chinga tu maga&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;nj devils&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;sci fi&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;possum&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;replacements band&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;spite&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;political protest&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;scream&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;dad&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;red bull&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;80s tv&quot;,&quot;score&quot;:1.0},{&quot;result&quot;:&quot;pabst blue ribbon&quot;,&quot;score&quot;:0.99},{&quot;result&quot;:&quot;pittsburgh steelers&quot;,&quot;score&quot;:0.93},{&quot;result&quot;:&quot;cleveland browns&quot;,&quot;score&quot;:0.9},{&quot;result&quot;:&quot;eyepatch reveille&quot;,&quot;score&quot;:0.85},{&quot;result&quot;:&quot;rams football&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;engineer&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;road house&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;pigeon&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;lock em up&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;patsymahon&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;jesus meme&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;darmok and jalad&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;enemy within&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;unreliable narrator&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;miller high life&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;bernie parent - philadelphia blazers&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;black keys&quot;,&quot;score&quot;:0.81},{&quot;result&quot;:&quot;rhino&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;gibson guitar&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;disney land&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;oddworld&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;mike mussina in baltimore orioles&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dressed to impress roblox&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ryan bingham&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;emmet otter&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;zildjian cymbals&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;no you hang up&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;luigi&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ace ventura&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;tyler thecreator&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;berserk anime&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;grandpa&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the growlers&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the warning&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;care bear&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;protect ya neck&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;poison&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;jason&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;fernando valenzuela&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;pulseretail&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;show business&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;trailer park&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;terry mclaurin washington scary terry&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;liliaamer1&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;9/11&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;rey mysterio&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;demon slayer inosuke&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ally&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;german shepherd&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;game of thrones&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;lebron&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dance&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;returns and refund&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;glacier national park montana&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;investor&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;miller lite&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;casper&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;terry funk&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;big boy&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;ny yankees&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;super furry animals&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;one lonely beastie i be&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dismember band&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;bluey lions&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;revenge of the ninja&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;silence ofthe lambs dog&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;dia de los muertos sugar skull&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;don&#39;t tell mom the babysitter&#39;s dead&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;siouxie and banshees&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;fraggle rock  long sleeved&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;halloween characters&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;river city&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;retro kansas city football vintage chiefs est 1960&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;the life of an eldest daughter&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;manual transmission&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;pete rose vintage&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;light yellow tshirt with green lini g&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;international harvester&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;black cats&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;wonder twins&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;volbeat band&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;smiley&quot;,&quot;score&quot;:0.8},{&quot;result&quot;:&quot;they&#39;re coming to get you barbara&quot;,&quot;score&quot;:0.8}]" data-maxresults="6" data-animated="true" data-navigation--header-target="searchField" data-search-history="true" data-search-history-ca-show-notice="false" data-search-history-clear="<span class=&quot;teepublicon teepublicon--color-orange-400 teepublicon-background--transparent&quot;><svg xmlns=&quot;https://www.w3.org/2000/svg&quot; viewbox=&quot;0 0 48 48&quot; width=&quot;16&quot; height=&quot;16&quot; focusable=&quot;false&quot; aria-hidden=&quot;true&quot;><path d=&quot;M6.88 36.879a3 3 0 1 0 4.242 4.242L24 28.243 36.879 41.12a3 3 0 1 0 4.243-4.242L28.243 24l12.879-12.879a3 3 0 1 0-4.243-4.242L24.001 19.757 11.12 6.88a3 3 0 1 0-4.24 4.24L19.758 24 6.879 36.879Z&quot;></path></svg></span>" data-search-history-clock="<span class=&quot;teepublicon teepublicon--color-orange-400 teepublicon-background--transparent&quot;><svg viewbox=&quot;0 0 48 48&quot; xmlns=&quot;https://www.w3.org/2000/svg&quot; width=&quot;16&quot; height=&quot;16&quot; focusable=&quot;false&quot; aria-hidden=&quot;true&quot;>
 <path d=&quot;M5.98911 7.03107C6.17346 5.73963 7.37897 4.84085 8.6817 5.02359C9.98435 5.20633 10.8909 6.4015 10.7067 7.69285C10.6142 8.34917 10.5458 8.00429 10.4943 8.67678C14.0408 5.75738 18.6173 4 23.603 4C34.8311 4 44 12.918 44 24C44 35.082 34.8311 44 23.603 44C14.4904 44 6.75081 38.1355 4.14317 30.008C3.63659 28.4291 4.51708 26.742 6.10979 26.2398C7.7025 25.7376 9.40432 26.6105 9.9109 28.1894C11.7294 33.8574 17.1586 38 23.603 38C31.5621 38 37.9476 31.6957 37.9476 24C37.9476 16.3043 31.5621 10 23.603 10C20.0968 10 16.8927 11.2244 14.4041 13.2572C15.2972 13.2141 15.1887 13.1278 16.0743 13.0047C17.3768 12.8222 18.5821 13.7209 18.7665 15.0122C18.9508 16.3037 18.0426 17.499 16.7399 17.6817C15.0076 17.9228 14.2854 18.0513 12.5379 17.9598C11.2917 17.8945 9.99833 17.8575 8.80123 17.4672C8.33973 17.3167 7.70293 17.046 7.16659 16.5143C6.63027 15.9826 6.35719 15.3513 6.20541 14.8938C5.76759 13.5741 5.76508 12.1649 5.68671 10.7906C5.59661 9.21028 5.76768 8.59659 5.98911 7.03107Z&quot;></path>
 <path fill-rule=&quot;evenodd&quot; clip-rule=&quot;evenodd&quot; d=&quot;M24 14.5047C25.6569 14.5047 27 15.8478 27 17.5047V24.8061L30.5435 26.9322C31.9642 27.7847 32.4249 29.6274 31.5725 31.0482C30.72 32.4689 28.8773 32.9296 27.4565 32.0772L21 28.2033V17.5047C21 15.8478 22.3431 14.5047 24 14.5047Z&quot;></path>
 </svg></span>" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="" tabIndex="1" />
@@ -1760,14 +1787,14 @@ Pada akhirnya, <strong><?= h($namaSitus) ?></strong> merepresentasikan konsep ga
     <div class="mw-right">
       <div class="mw-review-box">
 
-        <div class="mw-review-title">🏆TESTIMONI PENGGUNA Kuda777</div>
+        <div class="mw-review-title">🏆TESTIMONI PENGGUNA <?= h($namaSitus) ?></div>
 
 <div class="review-card">
   <div class="review-avatar">AR</div>
   <div>
     <div class="review-name">Andi Rachman, Jakarta</div>
     <div class="review-text">
-      "<strong>Kuda777</strong> itu gila sih cepatnya. Saya klik, langsung muncul. Gak ada loading yang ngeganggu. Saya udah coba banyak platform, tapi baru di sini yang bener-bener ngasih pengalaman real-time."
+      "<strong><?= h($namaSitus) ?></strong> itu gila sih cepatnya. Saya klik, langsung muncul. Gak ada loading yang ngeganggu. Saya udah coba banyak platform, tapi baru di sini yang bener-bener ngasih pengalaman real-time."
     </div>
   </div>
 </div>
@@ -1777,7 +1804,7 @@ Pada akhirnya, <strong><?= h($namaSitus) ?></strong> merepresentasikan konsep ga
   <div>
     <div class="review-name">Sinta Nurhaliza, Bandung</div>
     <div class="review-text">
-      "Thunder Core-nya berasa banget. Saya main dari HP jadul, tapi responnya tetap kenceng. <strong>Kuda777</strong> ngerti kalau gak semua orang punya gadget terbaru."
+      "Thunder Core-nya berasa banget. Saya main dari HP jadul, tapi responnya tetap kenceng. <strong><?= h($namaSitus) ?></strong> ngerti kalau gak semua orang punya gadget terbaru."
     </div>
   </div>
 </div>
@@ -1787,7 +1814,7 @@ Pada akhirnya, <strong><?= h($namaSitus) ?></strong> merepresentasikan konsep ga
   <div>
     <div class="review-name">Bagus Wicaksono, Surabaya</div>
     <div class="review-text">
-      "Dark Surge mode di malam hari favorit saya. Cepat dan nyaman di mata. <strong>Kuda777</strong> berhasil bikin platform yang gak cuma ngebut, tapi juga enak dipandang."
+      "Dark Surge mode di malam hari favorit saya. Cepat dan nyaman di mata. <strong><?= h($namaSitus) ?></strong> berhasil bikin platform yang gak cuma ngebut, tapi juga enak dipandang."
     </div>
   </div>
 </div>
@@ -1797,7 +1824,7 @@ Pada akhirnya, <strong><?= h($namaSitus) ?></strong> merepresentasikan konsep ga
   <div>
     <div class="review-name">Dewi Anggraini, Medan</div>
     <div class="review-text">
-      "Flash Support-nya keren! Saya nanya via live chat, dibales cepet banget. Gak sampe 5 menit udah beres. <strong>Kuda777</strong> menghargai waktu saya."
+      "Flash Support-nya keren! Saya nanya via live chat, dibales cepet banget. Gak sampe 5 menit udah beres. <strong><?= h($namaSitus) ?></strong> menghargai waktu saya."
     </div>
   </div>
 </div>
@@ -1807,7 +1834,7 @@ Pada akhirnya, <strong><?= h($namaSitus) ?></strong> merepresentasikan konsep ga
   <div>
     <div class="review-name">Yoga Prasetya, Yogyakarta</div>
     <div class="review-text">
-      "Instant Resume adalah fitur yang saya tunggu-tunggu. Saya sering gonta-ganti aplikasi, dan <strong>Kuda777</strong> langsung balik ke sesi saya tanpa loading. Ini game changer."
+      "Instant Resume adalah fitur yang saya tunggu-tunggu. Saya sering gonta-ganti aplikasi, dan <strong><?= h($namaSitus) ?></strong> langsung balik ke sesi saya tanpa loading. Ini game changer."
     </div>
   </div>
 </div>
@@ -1817,12 +1844,12 @@ Pada akhirnya, <strong><?= h($namaSitus) ?></strong> merepresentasikan konsep ga
   <div>
     <div class="review-name">Maya Anindita, Makassar</div>
     <div class="review-text">
-      "Saya suka efisiensi di The Flash Zone. Komunitasnya gak banyak drama. <strong>Kuda777</strong> cocok buat saya yang gak suka basa-basi."
+      "Saya suka efisiensi di The Flash Zone. Komunitasnya gak banyak drama. <strong><?= h($namaSitus) ?></strong> cocok buat saya yang gak suka basa-basi."
     </div>
   </div>
 </div>
 
-    <div class="mw-footer">&copy;2026 Kuda777 - Slot Online Resmi Terpercaya Tahun 2026</div>
+    <div class="mw-footer">&copy;2026 <?= h($namaSitus) ?> - Slot Online Resmi Terpercaya Tahun 2026</div>
 
   </div>
 </div>
@@ -2045,7 +2072,7 @@ Accessibility
 </span>
 
 </a>
-<a data-gtm-footer-link-text="Create a Dashery Store" style="--animation-order: " href="https://kuda777id.org/" class="link gtmFooterLink link-collection__link link--1 link--default">
+<a data-gtm-footer-link-text="Create a Dashery Store" style="--animation-order: " href="<?= h($origin) ?>/" class="link gtmFooterLink link-collection__link link--1 link--default">
 <span class='link__content'>
 Create a Dashery Store
 </span>
@@ -2070,7 +2097,7 @@ Social Responsibility
 </span>
 
 </a>
-<a data-gtm-footer-link-text="TeePublic Reviews" style="--animation-order: " href="https://kuda777id.org/" class="link gtmFooterLink link-collection__link link--1 link--default">
+<a data-gtm-footer-link-text="TeePublic Reviews" style="--animation-order: " href="<?= h($origin) ?>/" class="link gtmFooterLink link-collection__link link--1 link--default">
 <span class='link__content'>
 TeePublic Reviews
 </span>
@@ -2118,7 +2145,7 @@ Tag Directory
 
 </div></div></div><div class="link-collection m-foot__links-section"><div class="link-collection__body"><h4 class="h__h4 link-collection__header h--no-s">Artists</h4>
 
-<div class="link-collection__content"><a data-gtm-footer-link-text="Create" style="--animation-order: " href="https://kuda777id.org/" class="link gtmFooterLink link-collection__link link--1 link--default">
+<div class="link-collection__content"><a data-gtm-footer-link-text="Create" style="--animation-order: " href="<?= h($origin) ?>/" class="link gtmFooterLink link-collection__link link--1 link--default">
 <span class='link__content'>
 Artist Signup
 </span>
@@ -2132,7 +2159,7 @@ Design Guide
 </a>
 
 
-<a data-gtm-footer-link-text="TeePublic Blog" style="--animation-order: " href="https://kuda777id.org/" class="link gtmFooterLink link-collection__link link--1 link--default">
+<a data-gtm-footer-link-text="TeePublic Blog" style="--animation-order: " href="<?= h($origin) ?>/" class="link gtmFooterLink link-collection__link link--1 link--default">
 <span class='link__content'>
 TeePublic Blog
 </span>
@@ -2235,7 +2262,7 @@ United States - $ USD
 </button></div>
 </div>
 <div class='m-footer__legal-bar-subnav'>
-<a data-gtm-footer-link-text="Copyright Policy" rel="nofollow" target="_blank" href="https://kuda777id.org/en-us/articles/29890745668631-General-Product-Safety-Regulation-GSPR" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
+<a data-gtm-footer-link-text="Copyright Policy" rel="nofollow" target="_blank" href="<?= h($origin) ?>/" class="link m-footer__legal-bar-subnav-link gtmFooterLink">
 <span class='link__content'>
 Product Safety
 </span>
@@ -2373,7 +2400,7 @@ Away from
 <h4>Your Cart is empty...</h4>
 <p>Discover something you'll love!</p>
 <div class='m-tray-cart__body-links'>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="animals" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="animals" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
 <span class='link__content'>
 animals
 
@@ -2403,13 +2430,13 @@ food
 
 </span>
 
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="funny" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="funny" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
 <span class='link__content'>
 funny
 
 </span>
 
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="movies" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="movies" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
 <span class='link__content'>
 movies
 
@@ -2421,19 +2448,19 @@ sci-fi
 
 </span>
 
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sports" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sports" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
 <span class='link__content'>
 sports
 
 </span>
 
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="television" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="television" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
 <span class='link__content'>
 television
 
 </span>
 
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="vintage" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="vintage" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link vc-pill vc-pill--on-light link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="16" height="16" focusable="false" aria-hidden="true"><path fill-rule="evenodd" d="M31.523 35.766a17.393 17.393 0 0 1-10.051 3.178C11.822 38.944 4 31.121 4 21.472 4 11.822 11.822 4 21.472 4c9.65 0 17.472 7.822 17.472 17.472 0 3.741-1.176 7.208-3.178 10.05l7.355 7.356a3 3 0 1 1-4.243 4.243l-7.355-7.355Zm1.42-14.294c0 6.335-5.136 11.471-11.471 11.471s-11.471-5.136-11.471-11.471 5.136-11.471 11.471-11.471 11.471 5.136 11.471 11.471Z" clip-rule="evenodd"></path></svg></span>
 <span class='link__content'>
 vintage
 
@@ -2478,7 +2505,7 @@ Shop All Designs
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="New Tees on Sale" data-href="https://kermitsoutlawkitchen.com/about/" target="_blank" rel="sponsored noopener" style="--animation-order: " href="https://kermitsoutlawkitchen.com/about/" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="New Tees on Sale" data-href="/" target="_blank" rel="sponsored noopener" style="--animation-order: " href="/" class="link m-tray-shop-secondary__link link-collection__link link--1 link--default">
 <span class='link__content'>
 SLOT MAXWIN
 </span>
@@ -2724,9 +2751,9 @@ Back To Menu
 <div class="vc-header-logo"><a aria-label="Home Link" title="Home" href="https://www.teepublic.com/" class="link vc-header-logo__wrapper link--1 link--default">
 <span class='link__content'>
 <picture>
-  <source srcset="https://kuda777id.org/img/banner1.jpg" type="image/png">
+  <source srcset="<?= h((strpos((string)$bannerSrc, 'http') === 0) ? $bannerSrc : $origin . $bannerSrc) ?>" type="image/png">
   <img class="vc-header-logo__image" 
-       src="https://kuda777id.org/img/banner1.jpg"
+       src="<?= h((strpos((string)$bannerSrc, 'http') === 0) ? $bannerSrc : $origin . $bannerSrc) ?>"
        style="max-width:150px; height:auto; display:block; margin:0 auto;" 
        alt="SLOT TERPERCAYA">
 </picture>
@@ -2833,13 +2860,13 @@ Back To Menu
 </div>
 <div class="m-tray-shop__popular-topics"><h3>Browse All Topics</h3>
 <div class='m-tray-shop__popular-topics-content'>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="funny" data-href="https://kuda777id.org/" title="Funny" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="funny" data-href="<?= h($origin) ?>/" title="Funny" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 funny
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="music" data-href="https://kuda777id.org/" title="Music" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="music" data-href="<?= h($origin) ?>/" title="Music" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 music
 </span>
@@ -2851,19 +2878,19 @@ anime
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="movies" data-href="https://kuda777id.org/" title="Movies" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="movies" data-href="<?= h($origin) ?>/" title="Movies" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 movies
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="television" data-href="https://kuda777id.org/" title="Television" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="television" data-href="<?= h($origin) ?>/" title="Television" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 television
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sports" data-href="https://kuda777id.org/" title="Sports" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="sports" data-href="<?= h($origin) ?>/" title="Sports" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 sports
 </span>
@@ -2875,13 +2902,13 @@ sci-fi
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="vintage" data-href="https://kuda777id.org/" title="Vintage" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="vintage" data-href="<?= h($origin) ?>/" title="Vintage" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 vintage
 </span>
 
 </a>
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="animals" data-href="https://kuda777id.org/" title="Animals" href="https://kuda777id.org/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
+<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="animals" data-href="<?= h($origin) ?>/" title="Animals" href="<?= h($origin) ?>/" class="link m-tray-shop__popular-topic vc-pill vc-pill--on-dark link--default link--strong">
 <span class='link__content'>
 animals
 </span>
@@ -2923,7 +2950,7 @@ All Popular Designs
 
 </span>
 
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="FAQ" data-href="https://kuda777id.org/" href="https://kuda777id.org/" class="link m-tray-shop__support-link link--1 link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path d="M42.049 21.297a1.951 1.951 0 0 1 0 3.902H39.95a1.951 1.951 0 0 1 0-3.902h2.098Zm-36.098 0a1.951 1.951 0 0 0 0 3.902H8.05a1.951 1.951 0 0 0 0-3.902h-2.1ZM22 6a2 2 0 1 1 4 0v1.854a2 2 0 1 1-4 0V6Zm-.373 38a2.927 2.927 0 0 1 0-5.854h5.146a2.927 2.927 0 0 1 0 5.854h-5.146ZM35.353 9.89a2.035 2.035 0 0 1 2.829 0 1.918 1.918 0 0 1 0 2.76l-1.414 1.38a2.035 2.035 0 0 1-2.829 0 1.918 1.918 0 0 1 0-2.76l1.414-1.38Zm-22.706 0a2.035 2.035 0 0 0-2.829 0 1.918 1.918 0 0 0 0 2.76l1.414 1.38a2.035 2.035 0 0 0 2.829 0 1.918 1.918 0 0 0 0-2.76l-1.414-1.38ZM30.5 33c0-.352.121-.708.395-.93A10.98 10.98 0 0 0 35 23.5c0-6.075-4.925-11-11-11s-11 4.925-11 11a10.98 10.98 0 0 0 4.105 8.57c.274.222.395.578.395.93a2.5 2.5 0 0 0 2.5 2.5h8a2.5 2.5 0 0 0 2.5-2.5Z"></path></svg></span>
+</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="FAQ" data-href="<?= h($origin) ?>/" href="<?= h($origin) ?>/" class="link m-tray-shop__support-link link--1 link--default link--strong tp-btn--icon"><span class="teepublicon teepublicon--primary-400 teepublicon-background--transparent"><svg xmlns="https://www.w3.org/2000/svg" viewbox="0 0 48 48" width="20" height="20" focusable="false" aria-hidden="true"><path d="M42.049 21.297a1.951 1.951 0 0 1 0 3.902H39.95a1.951 1.951 0 0 1 0-3.902h2.098Zm-36.098 0a1.951 1.951 0 0 0 0 3.902H8.05a1.951 1.951 0 0 0 0-3.902h-2.1ZM22 6a2 2 0 1 1 4 0v1.854a2 2 0 1 1-4 0V6Zm-.373 38a2.927 2.927 0 0 1 0-5.854h5.146a2.927 2.927 0 0 1 0 5.854h-5.146ZM35.353 9.89a2.035 2.035 0 0 1 2.829 0 1.918 1.918 0 0 1 0 2.76l-1.414 1.38a2.035 2.035 0 0 1-2.829 0 1.918 1.918 0 0 1 0-2.76l1.414-1.38Zm-22.706 0a2.035 2.035 0 0 0-2.829 0 1.918 1.918 0 0 0 0 2.76l1.414 1.38a2.035 2.035 0 0 0 2.829 0 1.918 1.918 0 0 0 0-2.76l-1.414-1.38ZM30.5 33c0-.352.121-.708.395-.93A10.98 10.98 0 0 0 35 23.5c0-6.075-4.925-11-11-11s-11 4.925-11 11a10.98 10.98 0 0 0 4.105 8.57c.274.222.395.578.395.93a2.5 2.5 0 0 0 2.5 2.5h8a2.5 2.5 0 0 0 2.5-2.5Z"></path></svg></span>
 <span class='link__content'>
 <span>FAQ</span>
 
@@ -3331,7 +3358,7 @@ height="0" width="0" style="display:none;visibility:hidden" rel="dns-prefetch"><
 <script>
   window.addEventListener('load', function() {
     if (window.rudderanalytics && true) {
-      window.rudderanalytics.page({"account_type":"guest","cart_id":{"public_id":"9a8c68d58aaa0c110ea9655af8a790a4"},"is_signed_in":false,"iso_currency_code":"USD","request_action":"show","request_controller":"product_pages","request_id":"74165272-george-kittle-f-dallas-kittle","shipping_country":"KH","user_id":null,"experiments":[{"experiment_name":"con-3051-pasf","variant_name":"default"}],"website_id":1,"subdomain_name":"www","domain_name":"teepublic.com","store_name":null,"store_id":null,"xcfb":"1847521452160553165b015e0c0c18084c0160024f18015f0f151511095c1a12304c6d7f3528712a757c3174672d7b3965302431623e773a633a2b7f66652a365b696c035d","canvas":"T-Shirt","canvas_group":"Adult Apparel","canvas_id":1,"design_id":74165272,"design_image_url":"https://res.cloudinary.com/teepublic/image/private/s--L80ZO4l8--/t_Preview/b_rgb:c62b29,c_limit,f_jpg,h_600,q_90,w_600/v1744337506/production/designs/74165272_0.jpg","design_primary_tag":"george-kittle","design_title":"Kuda777","is_on_sale":false,"marketing_sku":"21599512JT2365GPK8","owner_account_type":"Designer","owner_id":6075586,"owner_username":"Hey siriusly","price_usd":23.0,"product_color":"Red","product_description":"Classic T-Shirt, Male Fit | Small, Red","product_gender":"Male Fit","product_id":357,"product_size":"S","product_style":"Classic T-Shirt","search_type":"default"});
+      window.rudderanalytics.page({"account_type":"guest","cart_id":{"public_id":"9a8c68d58aaa0c110ea9655af8a790a4"},"is_signed_in":false,"iso_currency_code":"USD","request_action":"show","request_controller":"product_pages","request_id":"74165272-george-kittle-f-dallas-kittle","shipping_country":"KH","user_id":null,"experiments":[{"experiment_name":"con-3051-pasf","variant_name":"default"}],"website_id":1,"subdomain_name":"www","domain_name":"teepublic.com","store_name":null,"store_id":null,"xcfb":"1847521452160553165b015e0c0c18084c0160024f18015f0f151511095c1a12304c6d7f3528712a757c3174672d7b3965302431623e773a633a2b7f66652a365b696c035d","canvas":"T-Shirt","canvas_group":"Adult Apparel","canvas_id":1,"design_id":74165272,"design_image_url":"https://res.cloudinary.com/teepublic/image/private/s--L80ZO4l8--/t_Preview/b_rgb:c62b29,c_limit,f_jpg,h_600,q_90,w_600/v1744337506/production/designs/74165272_0.jpg","design_primary_tag":"george-kittle","design_title":"<?= h($namaSitus) ?>","is_on_sale":false,"marketing_sku":"21599512JT2365GPK8","owner_account_type":"Designer","owner_id":6075586,"owner_username":"Hey siriusly","price_usd":23.0,"product_color":"Red","product_description":"Classic T-Shirt, Male Fit | Small, Red","product_gender":"Male Fit","product_id":357,"product_size":"S","product_style":"Classic T-Shirt","search_type":"default"});
     }
   });
 </script>
