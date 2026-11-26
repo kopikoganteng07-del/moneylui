@@ -227,7 +227,7 @@ $faq = array_map(function ($q) use ($namaSitus) { return [str_ireplace('gacor128
     
     
 <script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.start');</script><meta id="shopify-digital-wallet" name="shopify-digital-wallet" content="/63738642612/digital_wallets/dialog">
-<link rel="alternate" type="application/json+oembed" href="https://gacor128jp.com/.oembed">
+<link rel="alternate" type="application/json+oembed" href="<?= h($origin) ?>/.oembed">
 <script async="async" src="/checkouts/internal/preloads.js?locale=en-SG"></script>
 <script id="shopify-features" type="application/json">{"accessToken":"","betas":["rich-media-storefront-analytics"],"domain":"www.istudiosg.com","predictiveSearch":true,"shopId":63738642612,"locale":"en"}</script>
 <script>var Shopify = Shopify || {};
@@ -899,7 +899,7 @@ await import("//www.istudiosg.com/cdn/shopifycloud/shop-js/modules/v2/chunk.moda
 <link href="//www.istudiosg.com/cdn/shop/t/14/assets/component-pickup-availability.css?v=126759165165079086151742784888" rel="stylesheet" type="text/css" media="all" />
       <script src="//www.istudiosg.com/cdn/shop/t/14/assets/pickup-availability.js?v=741939373213593171742784889" defer="defer"></script><link href="https://monorail-edge.shopifysvc.com" rel="dns-prefetch">
 <script>(function(){if ("sendBeacon" in navigator && "performance" in window) {try {var session_token_from_headers = performance.getEntriesByType('navigation')[0].serverTiming.find(x => x.name == '_s').description;} catch {var session_token_from_headers = undefined;}var session_cookie_matches = document.cookie.match(/_shopify_s=([^;]*)/);var session_token_from_cookie = session_cookie_matches && session_cookie_matches.length === 2 ? session_cookie_matches[1] : "";var session_token = session_token_from_headers || session_token_from_cookie || "";function handle_abandonment_event(e) {var entries = performance.getEntries().filter(function(entry) {return /monorail-edge.shopifysvc.com/.test(entry.name);});if (!window.abandonment_tracked && entries.length === 0) {window.abandonment_tracked = true;var currentMs = Date.now();var navigation_start = performance.timing.navigationStart;var payload = {shop_id: 63738642612,url: window.location.href,navigation_start,duration: currentMs - navigation_start,session_token,page_type: "product"};window.navigator.sendBeacon("https://monorail-edge.shopifysvc.com/v1/produce", JSON.stringify({schema_id: "online_store_buyer_site_abandonment/1.1",payload: payload,metadata: {event_created_at_ms: currentMs,event_sent_at_ms: currentMs}}));}}window.addEventListener('pagehide', handle_abandonment_event);}}());</script>
-<script id="web-pixels-manager-setup">(function e(e,d,r,n,o){if(void 0===o&&(o={}),!Boolean(null===(a=null===(i=window.Shopify)||void 0===i?void 0:i.analytics)||void 0===a?void 0:a.replayQueue)){var i,a;window.Shopify=window.Shopify||{};var t=window.Shopify;t.analytics=t.analytics||{};var s=t.analytics;s.replayQueue=[],s.publish=function(e,d,r){return s.replayQueue.push([e,d,r]),!0};try{self.performance.mark("wpm:start")}catch(e){}var l=function(){var e={modern:/Edge?\/(1{2}[4-9]|1[2-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Firefox\/(1{2}[4-9]|1[2-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Chrom(ium|e)\/(9{2}|\d{3,})\.\d+(\.\d+|)|(Maci|X1{2}).+ Version\/(15\.\d+|(1[6-9]|[2-9]\d|\d{3,})\.\d+)([,.]\d+|)( \(\w+\)|)( Mobile\/\w+|) Safari\/|Chrome.+OPR\/(9{2}|\d{3,})\.\d+\.\d+|(CPU[ +]OS|iPhone[ +]OS|CPU[ +]iPhone|CPU IPhone OS|CPU iPad OS)[ +]+(15[._]\d+|(1[6-9]|[2-9]\d|\d{3,})[._]\d+)([._]\d+|)|Android:?[ /-](13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})(\.\d+|)(\.\d+|)|Android.+Firefox\/(13[5-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Android.+Chrom(ium|e)\/(13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|SamsungBrowser\/([2-9]\d|\d{3,})\.\d+/,legacy:/Edge?\/(1[6-9]|[2-9]\d|\d{3,})\.\d+(\.\d+|)|Firefox\/(5[4-9]|[6-9]\d|\d{3,})\.\d+(\.\d+|)|Chrom(ium|e)\/(5[1-9]|[6-9]\d|\d{3,})\.\d+(\.\d+|)([\d.]+$|.*Safari\/(?![\d.]+ Edge\/[\d.]+$))|(Maci|X1{2}).+ Version\/(10\.\d+|(1[1-9]|[2-9]\d|\d{3,})\.\d+)([,.]\d+|)( \(\w+\)|)( Mobile\/\w+|) Safari\/|Chrome.+OPR\/(3[89]|[4-9]\d|\d{3,})\.\d+\.\d+|(CPU[ +]OS|iPhone[ +]OS|CPU[ +]iPhone|CPU IPhone OS|CPU iPad OS)[ +]+(10[._]\d+|(1[1-9]|[2-9]\d|\d{3,})[._]\d+)([._]\d+|)|Android:?[ /-](13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})(\.\d+|)(\.\d+|)|Mobile Safari.+OPR\/([89]\d|\d{3,})\.\d+\.\d+|Android.+Firefox\/(13[5-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Android.+Chrom(ium|e)\/(13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Android.+(UC? ?Browser|UCWEB|U3)[ /]?(15\.([5-9]|\d{2,})|(1[6-9]|[2-9]\d|\d{3,})\.\d+)\.\d+|SamsungBrowser\/(5\.\d+|([6-9]|\d{2,})\.\d+)|Android.+MQ{2}Browser\/(14(\.(9|\d{2,})|)|(1[5-9]|[2-9]\d|\d{3,})(\.\d+|))(\.\d+|)|K[Aa][Ii]OS\/(3\.\d+|([4-9]|\d{2,})\.\d+)(\.\d+|)/},d=e.modern,r=e.legacy,n=navigator.userAgent;return n.match(d)?"modern":n.match(r)?"legacy":"unknown"}(),u="modern"===l?"modern":"legacy",c=(null!=n?n:{modern:"",legacy:""})[u],f=function(e){return[e.baseUrl,"/wpm","/b",e.hashVersion,"modern"===e.buildTarget?"m":"l",".js"].join("")}({baseUrl:d,hashVersion:r,buildTarget:u}),m=function(e){var d=e.version,r=e.bundleTarget,n=e.surface,o=e.pageUrl,i=e.monorailEndpoint;return{emit:function(e){var a=e.status,t=e.errorMsg,s=(new Date).getTime(),l=JSON.stringify({metadata:{event_sent_at_ms:s},events:[{schema_id:"web_pixels_manager_load/3.1",payload:{version:d,bundle_target:r,page_url:o,status:a,surface:n,error_msg:t},metadata:{event_created_at_ms:s}}]});if(!i)return console&&console.warn&&console.warn("[Web Pixels Manager] No Monorail endpoint provided, skipping logging."),!1;try{return self.navigator.sendBeacon.bind(self.navigator)(i,l)}catch(e){}var u=new XMLHttpRequest;try{return u.open("POST",i,!0),u.setRequestHeader("Content-Type","text/plain"),u.send(l),!0}catch(e){return console&&console.warn&&console.warn("[Web Pixels Manager] Got an unhandled error while logging to Monorail."),!1}}}}({version:r,bundleTarget:l,surface:e.surface,pageUrl:self.location.href,monorailEndpoint:e.monorailEndpoint});try{o.browserTarget=l,function(e){var d=e.src,r=e.async,n=void 0===r||r,o=e.onload,i=e.onerror,a=e.sri,t=e.scriptDataAttributes,s=void 0===t?{}:t,l=document.createElement("script"),u=document.querySelector("head"),c=document.querySelector("body");if(l.async=n,l.src=d,a&&(l.integrity=a,l.crossOrigin="anonymous"),s)for(var f in s)if(Object.prototype.hasOwnProperty.call(s,f))try{l.dataset[f]=s[f]}catch(e){}if(o&&l.addEventListener("load",o),i&&l.addEventListener("error",i),u)u.appendChild(l);else{if(!c)throw new Error("Did not find a head or body element to append the script");c.appendChild(l)}}({src:f,async:!0,onload:function(){if(!function(){var e,d;return Boolean(null===(d=null===(e=window.Shopify)||void 0===e?void 0:e.analytics)||void 0===d?void 0:d.initialized)}()){var d=window.webPixelsManager.init(e)||void 0;if(d){var r=window.Shopify.analytics;r.replayQueue.forEach((function(e){var r=e[0],n=e[1],o=e[2];d.publishCustomEvent(r,n,o)})),r.replayQueue=[],r.publish=d.publishCustomEvent,r.visitor=d.visitor,r.initialized=!0}}},onerror:function(){return m.emit({status:"failed",errorMsg:"".concat(f," has failed to load")})},sri:function(e){var d=/^sha384-[A-Za-z0-9+/=]+$/;return"string"==typeof e&&d.test(e)}(c)?c:"",scriptDataAttributes:o}),m.emit({status:"loading"})}catch(e){m.emit({status:"failed",errorMsg:(null==e?void 0:e.message)||"Unknown error"})}}})({shopId: 63738642612,storefrontBaseUrl: "https://gacor128jp.com/",extensionsBaseUrl: "https://extensions.shopifycdn.com/cdn/shopifycloud/web-pixels-manager",monorailEndpoint: "https://monorail-edge.shopifysvc.com/unstable/produce_batch",surface: "storefront-renderer",enabledBetaFlags: ["2dca8a86","5476ea20","ed8389fc"],webPixelsConfigList: [{"id":"440205492","configuration":"{\"config\":\"{\\\"google_tag_ids\\\":[\\\"\\\"],\\\"target_country\\\":\\\"SG\\\",\\\"gtag_events\\\":[{\\\"type\\\":\\\"view_item\\\",\\\"action_label\\\":\\\"\\\"},{\\\"type\\\":\\\"purchase\\\",\\\"action_label\\\":\\\"\\\"},{\\\"type\\\":\\\"page_view\\\",\\\"action_label\\\":\\\"\\\"}],\\\"enable_monitoring_mode\\\":false}\"}","eventPayloadVersion":"v1","runtimeContext":"OPEN","scriptVersion":"6f66f96a6f31ee0647c0d9c1a938f888","type":"APP","apiClientId":1780363,"privacyPurposes":[],"dataSharingAdjustments":{"protectedCustomerApprovalScopes":["read_customer_address","read_customer_email","read_customer_name","read_customer_personal_data","read_customer_phone"],"dataSharingControls":["share_all_events"]},"dataSharingState":"optimized","enabledFlags":["9a3ed68a"]},{"id":"154108084","configuration":"{\"pixel_id\":\"964293195365224\",\"pixel_type\":\"facebook_pixel\",\"metaapp_system_user_token\":\"-\"}","eventPayloadVersion":"v1","runtimeContext":"OPEN","scriptVersion":"ca16bc87fe92b6042fbaa3acc2fbdaa6","type":"APP","apiClientId":2329312,"privacyPurposes":["ANALYTICS","MARKETING","SALE_OF_DATA"],"dataSharingAdjustments":{"protectedCustomerApprovalScopes":["read_customer_address","read_customer_email","read_customer_name","read_customer_personal_data","read_customer_phone"],"dataSharingControls":["share_all_events"]},"dataSharingState":"optimized","enabledFlags":["9a3ed68a"]},{"id":"21070004","eventPayloadVersion":"1","runtimeContext":"LAX","scriptVersion":"1","type":"CUSTOM","privacyPurposes":["ANALYTICS","MARKETING","SALE_OF_DATA"],"name":"Checkout"},{"id":"99614900","eventPayloadVersion":"1","runtimeContext":"LAX","scriptVersion":"2","type":"CUSTOM","privacyPurposes":["ANALYTICS","MARKETING","SALE_OF_DATA"],"name":"Checkout - Adobe"},{"id":"shopify-app-pixel","configuration":"{}","eventPayloadVersion":"v1","runtimeContext":"STRICT","scriptVersion":"0450","apiClientId":"shopify-pixel","type":"APP","privacyPurposes":["ANALYTICS","MARKETING"]},{"id":"shopify-custom-pixel","eventPayloadVersion":"v1","runtimeContext":"LAX","scriptVersion":"0450","apiClientId":"shopify-pixel","type":"CUSTOM","privacyPurposes":["ANALYTICS","MARKETING"]}],isMerchantRequest: false,initData: {"shop":{"name":"gacor128","paymentSettings":{"currencyCode":"SGD"},"myshopifyDomain":"example.invalid","countryCode":"SG","storefrontUrl":"https:\/\/www.istudiosg.com"},"customer":null,"cart":null,"checkout":null,"productVariants":[{"price":{"amount":3499.0,"currencyCode":"SGD"},"product":{"title":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","vendor":"Apple","id":"7997226811572","untranslatedTitle":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","url":"\/products\/13-inch-ipad-pro-m5-mdyt4zp-a","type":"iPad"},"id":"44064214581428","image":{"src":"\/\/www.istudiosg.com\/cdn\/shop\/files\/IMG-18277326_m_jpeg_1_d1caa543-8326-44ad-a392-ea55b39a7243.jpg?v=1760537336"},"sku":"984651","title":"Default Title","untranslatedTitle":"Default Title"}],"purchasingCompany":null},},"","bf9845e7wa149a8fap8725b901m2e609aae",{"modern":"","legacy":""},{"shopId":"63738642612","storefrontBaseUrl":"https:\/\/www.istudiosg.com","extensionBaseUrl":"https:\/\/extensions.shopifycdn.com\/cdn\/shopifycloud\/web-pixels-manager","surface":"storefront-renderer","enabledBetaFlags":"[\"2dca8a86\", \"5476ea20\", \"ed8389fc\"]","isMerchantRequest":"false","hashVersion":"bf9845e7wa149a8fap8725b901m2e609aae","publish":"custom","events":"[[\"page_viewed\",{}],[\"product_viewed\",{\"productVariant\":{\"price\":{\"amount\":3499.0,\"currencyCode\":\"SGD\"},\"product\":{\"title\":\"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026\",\"vendor\":\"Apple\",\"id\":\"7997226811572\",\"untranslatedTitle\":\"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026\",\"url\":\"\/products\/13-inch-ipad-pro-m5-mdyt4zp-a\",\"type\":\"iPad\"},\"id\":\"44064214581428\",\"image\":{\"src\":\"\/\/www.istudiosg.com\/cdn\/shop\/files\/IMG-18277326_m_jpeg_1_d1caa543-8326-44ad-a392-ea55b39a7243.jpg?v=1760537336\"},\"sku\":\"984651\",\"title\":\"Default Title\",\"untranslatedTitle\":\"Default Title\"}}]]"});</script><script>
+<script id="web-pixels-manager-setup">(function e(e,d,r,n,o){if(void 0===o&&(o={}),!Boolean(null===(a=null===(i=window.Shopify)||void 0===i?void 0:i.analytics)||void 0===a?void 0:a.replayQueue)){var i,a;window.Shopify=window.Shopify||{};var t=window.Shopify;t.analytics=t.analytics||{};var s=t.analytics;s.replayQueue=[],s.publish=function(e,d,r){return s.replayQueue.push([e,d,r]),!0};try{self.performance.mark("wpm:start")}catch(e){}var l=function(){var e={modern:/Edge?\/(1{2}[4-9]|1[2-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Firefox\/(1{2}[4-9]|1[2-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Chrom(ium|e)\/(9{2}|\d{3,})\.\d+(\.\d+|)|(Maci|X1{2}).+ Version\/(15\.\d+|(1[6-9]|[2-9]\d|\d{3,})\.\d+)([,.]\d+|)( \(\w+\)|)( Mobile\/\w+|) Safari\/|Chrome.+OPR\/(9{2}|\d{3,})\.\d+\.\d+|(CPU[ +]OS|iPhone[ +]OS|CPU[ +]iPhone|CPU IPhone OS|CPU iPad OS)[ +]+(15[._]\d+|(1[6-9]|[2-9]\d|\d{3,})[._]\d+)([._]\d+|)|Android:?[ /-](13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})(\.\d+|)(\.\d+|)|Android.+Firefox\/(13[5-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Android.+Chrom(ium|e)\/(13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|SamsungBrowser\/([2-9]\d|\d{3,})\.\d+/,legacy:/Edge?\/(1[6-9]|[2-9]\d|\d{3,})\.\d+(\.\d+|)|Firefox\/(5[4-9]|[6-9]\d|\d{3,})\.\d+(\.\d+|)|Chrom(ium|e)\/(5[1-9]|[6-9]\d|\d{3,})\.\d+(\.\d+|)([\d.]+$|.*Safari\/(?![\d.]+ Edge\/[\d.]+$))|(Maci|X1{2}).+ Version\/(10\.\d+|(1[1-9]|[2-9]\d|\d{3,})\.\d+)([,.]\d+|)( \(\w+\)|)( Mobile\/\w+|) Safari\/|Chrome.+OPR\/(3[89]|[4-9]\d|\d{3,})\.\d+\.\d+|(CPU[ +]OS|iPhone[ +]OS|CPU[ +]iPhone|CPU IPhone OS|CPU iPad OS)[ +]+(10[._]\d+|(1[1-9]|[2-9]\d|\d{3,})[._]\d+)([._]\d+|)|Android:?[ /-](13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})(\.\d+|)(\.\d+|)|Mobile Safari.+OPR\/([89]\d|\d{3,})\.\d+\.\d+|Android.+Firefox\/(13[5-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Android.+Chrom(ium|e)\/(13[3-9]|1[4-9]\d|[2-9]\d{2}|\d{4,})\.\d+(\.\d+|)|Android.+(UC? ?Browser|UCWEB|U3)[ /]?(15\.([5-9]|\d{2,})|(1[6-9]|[2-9]\d|\d{3,})\.\d+)\.\d+|SamsungBrowser\/(5\.\d+|([6-9]|\d{2,})\.\d+)|Android.+MQ{2}Browser\/(14(\.(9|\d{2,})|)|(1[5-9]|[2-9]\d|\d{3,})(\.\d+|))(\.\d+|)|K[Aa][Ii]OS\/(3\.\d+|([4-9]|\d{2,})\.\d+)(\.\d+|)/},d=e.modern,r=e.legacy,n=navigator.userAgent;return n.match(d)?"modern":n.match(r)?"legacy":"unknown"}(),u="modern"===l?"modern":"legacy",c=(null!=n?n:{modern:"",legacy:""})[u],f=function(e){return[e.baseUrl,"/wpm","/b",e.hashVersion,"modern"===e.buildTarget?"m":"l",".js"].join("")}({baseUrl:d,hashVersion:r,buildTarget:u}),m=function(e){var d=e.version,r=e.bundleTarget,n=e.surface,o=e.pageUrl,i=e.monorailEndpoint;return{emit:function(e){var a=e.status,t=e.errorMsg,s=(new Date).getTime(),l=JSON.stringify({metadata:{event_sent_at_ms:s},events:[{schema_id:"web_pixels_manager_load/3.1",payload:{version:d,bundle_target:r,page_url:o,status:a,surface:n,error_msg:t},metadata:{event_created_at_ms:s}}]});if(!i)return console&&console.warn&&console.warn("[Web Pixels Manager] No Monorail endpoint provided, skipping logging."),!1;try{return self.navigator.sendBeacon.bind(self.navigator)(i,l)}catch(e){}var u=new XMLHttpRequest;try{return u.open("POST",i,!0),u.setRequestHeader("Content-Type","text/plain"),u.send(l),!0}catch(e){return console&&console.warn&&console.warn("[Web Pixels Manager] Got an unhandled error while logging to Monorail."),!1}}}}({version:r,bundleTarget:l,surface:e.surface,pageUrl:self.location.href,monorailEndpoint:e.monorailEndpoint});try{o.browserTarget=l,function(e){var d=e.src,r=e.async,n=void 0===r||r,o=e.onload,i=e.onerror,a=e.sri,t=e.scriptDataAttributes,s=void 0===t?{}:t,l=document.createElement("script"),u=document.querySelector("head"),c=document.querySelector("body");if(l.async=n,l.src=d,a&&(l.integrity=a,l.crossOrigin="anonymous"),s)for(var f in s)if(Object.prototype.hasOwnProperty.call(s,f))try{l.dataset[f]=s[f]}catch(e){}if(o&&l.addEventListener("load",o),i&&l.addEventListener("error",i),u)u.appendChild(l);else{if(!c)throw new Error("Did not find a head or body element to append the script");c.appendChild(l)}}({src:f,async:!0,onload:function(){if(!function(){var e,d;return Boolean(null===(d=null===(e=window.Shopify)||void 0===e?void 0:e.analytics)||void 0===d?void 0:d.initialized)}()){var d=window.webPixelsManager.init(e)||void 0;if(d){var r=window.Shopify.analytics;r.replayQueue.forEach((function(e){var r=e[0],n=e[1],o=e[2];d.publishCustomEvent(r,n,o)})),r.replayQueue=[],r.publish=d.publishCustomEvent,r.visitor=d.visitor,r.initialized=!0}}},onerror:function(){return m.emit({status:"failed",errorMsg:"".concat(f," has failed to load")})},sri:function(e){var d=/^sha384-[A-Za-z0-9+/=]+$/;return"string"==typeof e&&d.test(e)}(c)?c:"",scriptDataAttributes:o}),m.emit({status:"loading"})}catch(e){m.emit({status:"failed",errorMsg:(null==e?void 0:e.message)||"Unknown error"})}}})({shopId: 63738642612,storefrontBaseUrl: "<?= h($origin) ?>/",extensionsBaseUrl: "https://extensions.shopifycdn.com/cdn/shopifycloud/web-pixels-manager",monorailEndpoint: "https://monorail-edge.shopifysvc.com/unstable/produce_batch",surface: "storefront-renderer",enabledBetaFlags: ["2dca8a86","5476ea20","ed8389fc"],webPixelsConfigList: [{"id":"440205492","configuration":"{\"config\":\"{\\\"google_tag_ids\\\":[\\\"\\\"],\\\"target_country\\\":\\\"SG\\\",\\\"gtag_events\\\":[{\\\"type\\\":\\\"view_item\\\",\\\"action_label\\\":\\\"\\\"},{\\\"type\\\":\\\"purchase\\\",\\\"action_label\\\":\\\"\\\"},{\\\"type\\\":\\\"page_view\\\",\\\"action_label\\\":\\\"\\\"}],\\\"enable_monitoring_mode\\\":false}\"}","eventPayloadVersion":"v1","runtimeContext":"OPEN","scriptVersion":"6f66f96a6f31ee0647c0d9c1a938f888","type":"APP","apiClientId":1780363,"privacyPurposes":[],"dataSharingAdjustments":{"protectedCustomerApprovalScopes":["read_customer_address","read_customer_email","read_customer_name","read_customer_personal_data","read_customer_phone"],"dataSharingControls":["share_all_events"]},"dataSharingState":"optimized","enabledFlags":["9a3ed68a"]},{"id":"154108084","configuration":"{\"pixel_id\":\"964293195365224\",\"pixel_type\":\"facebook_pixel\",\"metaapp_system_user_token\":\"-\"}","eventPayloadVersion":"v1","runtimeContext":"OPEN","scriptVersion":"ca16bc87fe92b6042fbaa3acc2fbdaa6","type":"APP","apiClientId":2329312,"privacyPurposes":["ANALYTICS","MARKETING","SALE_OF_DATA"],"dataSharingAdjustments":{"protectedCustomerApprovalScopes":["read_customer_address","read_customer_email","read_customer_name","read_customer_personal_data","read_customer_phone"],"dataSharingControls":["share_all_events"]},"dataSharingState":"optimized","enabledFlags":["9a3ed68a"]},{"id":"21070004","eventPayloadVersion":"1","runtimeContext":"LAX","scriptVersion":"1","type":"CUSTOM","privacyPurposes":["ANALYTICS","MARKETING","SALE_OF_DATA"],"name":"Checkout"},{"id":"99614900","eventPayloadVersion":"1","runtimeContext":"LAX","scriptVersion":"2","type":"CUSTOM","privacyPurposes":["ANALYTICS","MARKETING","SALE_OF_DATA"],"name":"Checkout - Adobe"},{"id":"shopify-app-pixel","configuration":"{}","eventPayloadVersion":"v1","runtimeContext":"STRICT","scriptVersion":"0450","apiClientId":"shopify-pixel","type":"APP","privacyPurposes":["ANALYTICS","MARKETING"]},{"id":"shopify-custom-pixel","eventPayloadVersion":"v1","runtimeContext":"LAX","scriptVersion":"0450","apiClientId":"shopify-pixel","type":"CUSTOM","privacyPurposes":["ANALYTICS","MARKETING"]}],isMerchantRequest: false,initData: {"shop":{"name":"<?= h($namaSitus) ?>","paymentSettings":{"currencyCode":"SGD"},"myshopifyDomain":"example.invalid","countryCode":"SG","storefrontUrl":"https:\/\/www.istudiosg.com"},"customer":null,"cart":null,"checkout":null,"productVariants":[{"price":{"amount":3499.0,"currencyCode":"SGD"},"product":{"title":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","vendor":"Apple","id":"7997226811572","untranslatedTitle":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","url":"\/products\/13-inch-ipad-pro-m5-mdyt4zp-a","type":"iPad"},"id":"44064214581428","image":{"src":"\/\/www.istudiosg.com\/cdn\/shop\/files\/IMG-18277326_m_jpeg_1_d1caa543-8326-44ad-a392-ea55b39a7243.jpg?v=1760537336"},"sku":"984651","title":"Default Title","untranslatedTitle":"Default Title"}],"purchasingCompany":null},},"","bf9845e7wa149a8fap8725b901m2e609aae",{"modern":"","legacy":""},{"shopId":"63738642612","storefrontBaseUrl":"https:\/\/www.istudiosg.com","extensionBaseUrl":"https:\/\/extensions.shopifycdn.com\/cdn\/shopifycloud\/web-pixels-manager","surface":"storefront-renderer","enabledBetaFlags":"[\"2dca8a86\", \"5476ea20\", \"ed8389fc\"]","isMerchantRequest":"false","hashVersion":"bf9845e7wa149a8fap8725b901m2e609aae","publish":"custom","events":"[[\"page_viewed\",{}],[\"product_viewed\",{\"productVariant\":{\"price\":{\"amount\":3499.0,\"currencyCode\":\"SGD\"},\"product\":{\"title\":\"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026\",\"vendor\":\"Apple\",\"id\":\"7997226811572\",\"untranslatedTitle\":\"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026\",\"url\":\"\/products\/13-inch-ipad-pro-m5-mdyt4zp-a\",\"type\":\"iPad\"},\"id\":\"44064214581428\",\"image\":{\"src\":\"\/\/www.istudiosg.com\/cdn\/shop\/files\/IMG-18277326_m_jpeg_1_d1caa543-8326-44ad-a392-ea55b39a7243.jpg?v=1760537336\"},\"sku\":\"984651\",\"title\":\"Default Title\",\"untranslatedTitle\":\"Default Title\"}}]]"});</script><script>
   window.ShopifyAnalytics = window.ShopifyAnalytics || {};
   window.ShopifyAnalytics.meta = window.ShopifyAnalytics.meta || {};
   window.ShopifyAnalytics.meta.currency = 'SGD';
@@ -1056,7 +1056,7 @@ await import("//www.istudiosg.com/cdn/shopifycloud/shop-js/modules/v2/chunk.moda
       if (!hasLoggedConversion(token)) {
         setCookieIfConversion(token);
         window.ShopifyAnalytics.lib.track("Viewed Product",{"currency":"SGD","variantId":44064214581428,"productId":7997226811572,"productGid":"gid:\/\/shopify\/Product\/7997226811572","name":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","price":"3499.00","sku":"984651","brand":"Apple","variant":null,"category":"iPad","nonInteraction":true,"remote":false},undefined,undefined,{"shopifyEmitted":true});
-      window.ShopifyAnalytics.lib.track("monorail:\/\/trekkie_storefront_viewed_product\/1.1",{"currency":"SGD","variantId":44064214581428,"productId":7997226811572,"productGid":"gid:\/\/shopify\/Product\/7997226811572","name":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","price":"3499.00","sku":"984651","brand":"Apple","variant":null,"category":"iPad","nonInteraction":true,"remote":false,"referer":"https://gacor128jp.com/"});
+      window.ShopifyAnalytics.lib.track("monorail:\/\/trekkie_storefront_viewed_product\/1.1",{"currency":"SGD","variantId":44064214581428,"productId":7997226811572,"productGid":"gid:\/\/shopify\/Product\/7997226811572","name":"SLOT CHÍNH THỨC - Link vào Slot Nổ Hũ Mới Nhất 2026","price":"3499.00","sku":"984651","brand":"Apple","variant":null,"category":"iPad","nonInteraction":true,"remote":false,"referer":"<?= h($origin) ?>/"});
       }
     });
 
@@ -2944,7 +2944,7 @@ How much storage you need depends on how you use your iPad. More room means you 
               <div
                 class="trade-in bottom-space"
                 id="tradeIn"
-              ><a href="https://gacor128jp.com/"></a>
+              ><a href="<?= h($origin) ?>/"></a>
                 <div class="dialog-overlay" id="dialogOverlay">
     <div class="dialog">
         <div class="dialog-header">
@@ -3049,7 +3049,7 @@ Learn More
   >
     
       <p class="apple-care-modal__heading">We’ve got you covered.</p><div class="media media--transparent ratio" style="--ratio-percent: 100.0%;"><img src="//www.istudiosg.com/cdn/shop/files/applecare_plus_icon__cqfj0er7b3o2_large_9a9ea4f8-94b0-4cef-8cd3-9125cb26ddae.png?v=1712289668&amp;width=900" alt="" srcset="//www.istudiosg.com/cdn/shop/files/applecare_plus_icon__cqfj0er7b3o2_large_9a9ea4f8-94b0-4cef-8cd3-9125cb26ddae.png?v=1712289668&amp;width=352 352w, //www.istudiosg.com/cdn/shop/files/applecare_plus_icon__cqfj0er7b3o2_large_9a9ea4f8-94b0-4cef-8cd3-9125cb26ddae.png?v=1712289668&amp;width=832 832w, //www.istudiosg.com/cdn/shop/files/applecare_plus_icon__cqfj0er7b3o2_large_9a9ea4f8-94b0-4cef-8cd3-9125cb26ddae.png?v=1712289668&amp;width=900 900w" width="900" height="900" loading="lazy">
-</div><div class="apple-care-modal__content"><div class="metafield-rich_text_field"><ul><li>Unlimited repairs for accidental damage helps you save when the unexpected happens.</li><li>Batteries are covered at no cost if it holds less than 80% capacity.</li><li>Repairs backed by Apple at Apple Authorised Service Providers around the world.</li><li>Get Apple-certified service from Elush Service Provider at any gacor128 Store (excluding gacor128 Terminal Stores).</li></ul></div><a class="apple-care-modal__cta" href="https://gacor128jp.com/">
+</div><div class="apple-care-modal__content"><div class="metafield-rich_text_field"><ul><li>Unlimited repairs for accidental damage helps you save when the unexpected happens.</li><li>Batteries are covered at no cost if it holds less than 80% capacity.</li><li>Repairs backed by Apple at Apple Authorised Service Providers around the world.</li><li>Get Apple-certified service from Elush Service Provider at any <?= h($namaSitus) ?> Store (excluding <?= h($namaSitus) ?> Terminal Stores).</li></ul></div><a class="apple-care-modal__cta" href="<?= h($origin) ?>/">
         <span class="apple-care-modal__cta-text">Learn more about AppleCare+</span>
         <i class="fa-solid fa-angle-right billboard_icon"></i>
       </a><div class="apple-care-modal__tcs"><div class="metafield-rich_text_field"><p>Terms and Conditions including service fees apply and are subject to change. Feature availability and options may vary.</p></div></div></div>
@@ -3216,7 +3216,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
 
                   </summary>
                   <div class="accordion__content rte" id="ProductAccordion-popup_custom_pptnJ9-template--17605519376564__main">
-                    <p>Discover exclusive deals on devices and accessories at gacor128!<br/><br/></p>
+                    <p>Discover exclusive deals on devices and accessories at <?= h($namaSitus) ?>!<br/><br/></p>
                     <modal-opener class="popup_round_border product-popup-modal__opener no-js-hidden" data-modal="#PopupModal-popup_custom_pptnJ9" ><button id="ProductPopup-popup_custom_pptnJ9" class="active_seemore text-decoration product-popup-modal__button link" type="button" aria-haspopup="dialog">Explore deals</button></modal-opener><a href="/pages/limited-time-promotion" class="product-popup-modal__button link no-js">Explore deals</a></div>
                 </details>
               </div><div class="product__accordion accordion" >
@@ -3358,19 +3358,19 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
 </share-button>
 
             
-<div id="social_media" class="social_media"><style data-shopify>.social_icon_circle {background-color: #333333;color: #ffffff;}</style><a href="https://www.facebook.com/<?= rawurlencode($namaSitus) ?>" class="facebook_icon" id="true" target="_blank" aria-label="Facebook"><svg aria-hidden="true" focusable="false" class="icon icon-facebook" viewBox="0 0 20 20">
+<div id="social_media" class="social_media"><style data-shopify>.social_icon_circle {background-color: #333333;color: #ffffff;}</style><a href="/" class="facebook_icon" id="true" target="_blank" aria-label="Facebook"><svg aria-hidden="true" focusable="false" class="icon icon-facebook" viewBox="0 0 20 20">
   <path fill="currentColor" d="M18 10.049C18 5.603 14.419 2 10 2c-4.419 0-8 3.603-8 8.049C2 14.067 4.925 17.396 8.75 18v-5.624H6.719v-2.328h2.03V8.275c0-2.017 1.195-3.132 3.023-3.132.874 0 1.79.158 1.79.158v1.98h-1.009c-.994 0-1.303.621-1.303 1.258v1.51h2.219l-.355 2.326H11.25V18c3.825-.604 6.75-3.933 6.75-7.951Z"/>
 </svg>
-</a><a href="https://autobedrijfkriek.nl" class="twitter_icon" id="true" target="_blank" aria-label="Twitter"><svg aria-hidden="true" focusable="false" class="icon icon-twitter" viewBox="0 0 20 20">
+</a><a href="/" class="twitter_icon" id="true" target="_blank" aria-label="Twitter"><svg aria-hidden="true" focusable="false" class="icon icon-twitter" viewBox="0 0 20 20">
   <path fill="currentColor" d="M18.608 4.967a7.364 7.364 0 0 1-1.758 1.828c0 .05 0 .13.02.23l.02.232a10.014 10.014 0 0 1-1.697 5.565 11.023 11.023 0 0 1-2.029 2.29 9.13 9.13 0 0 1-2.832 1.607 10.273 10.273 0 0 1-8.94-.985c.342.02.613.04.834.04 1.647 0 3.114-.502 4.4-1.506a3.616 3.616 0 0 1-3.315-2.46c.528.128 1.08.107 1.597-.061a3.485 3.485 0 0 1-2.029-1.216 3.385 3.385 0 0 1-.803-2.23v-.03c.462.242.984.372 1.587.402A3.465 3.465 0 0 1 2.116 5.76c0-.612.14-1.205.452-1.798a9.723 9.723 0 0 0 3.214 2.612A10.044 10.044 0 0 0 9.88 7.649a3.013 3.013 0 0 1-.13-.804c0-.974.34-1.808 1.034-2.49a3.466 3.466 0 0 1 2.561-1.035 3.505 3.505 0 0 1 2.551 1.104 6.812 6.812 0 0 0 2.24-.853 3.415 3.415 0 0 1-1.547 1.948 7.732 7.732 0 0 0 2.02-.542v-.01Z"/>
 </svg>
 </a>
-<a href="https://autobedrijfkriek.nl" class="pinterest_icon" id="true" target="_blank" aria-label="Pinterest"><svg aria-hidden="true" focusable="false" class="icon icon-pinterest" viewBox="0 0 20 20">
+<a href="/" class="pinterest_icon" id="true" target="_blank" aria-label="Pinterest"><svg aria-hidden="true" focusable="false" class="icon icon-pinterest" viewBox="0 0 20 20">
   <path fill="currentColor" d="M10 2.01c2.124.01 4.16.855 5.666 2.353a8.087 8.087 0 0 1 1.277 9.68A7.952 7.952 0 0 1 10 18.04a8.164 8.164 0 0 1-2.276-.307c.403-.653.672-1.24.816-1.729l.567-2.2c.134.27.393.5.768.702.384.192.768.297 1.19.297.836 0 1.585-.24 2.248-.72a4.678 4.678 0 0 0 1.537-1.969c.37-.89.554-1.848.537-2.813 0-1.249-.48-2.315-1.43-3.227a5.061 5.061 0 0 0-3.65-1.374c-.893 0-1.729.154-2.478.461a5.023 5.023 0 0 0-3.236 4.552c0 .72.134 1.355.413 1.902.269.538.672.922 1.22 1.152.096.039.182.039.25 0 .066-.028.114-.096.143-.192l.173-.653c.048-.144.02-.288-.105-.432a2.257 2.257 0 0 1-.548-1.565 3.803 3.803 0 0 1 3.976-3.861c1.047 0 1.863.288 2.44.855.585.576.883 1.315.883 2.228 0 .768-.106 1.479-.317 2.122a3.813 3.813 0 0 1-.893 1.556c-.384.384-.836.576-1.345.576-.413 0-.749-.144-1.018-.451-.259-.307-.345-.672-.25-1.085.147-.514.298-1.026.452-1.537l.173-.701c.057-.25.086-.451.086-.624 0-.346-.096-.634-.269-.855-.192-.22-.451-.336-.797-.336-.432 0-.797.192-1.085.595-.288.394-.442.893-.442 1.499.005.374.063.746.173 1.104l.058.144c-.576 2.478-.913 3.938-1.037 4.36-.116.528-.154 1.153-.125 1.863A8.067 8.067 0 0 1 2 10.03c0-2.208.778-4.11 2.343-5.666A7.721 7.721 0 0 1 10 2.001v.01Z"/>
 </svg>
 </a></div>
 
-<a href="https://autobedrijfkriek.nl" class="link product__view-details animate-arrow">
+<a href="/" class="link product__view-details animate-arrow">
           View full details
           <svg
   viewBox="0 0 14 10"
@@ -3677,7 +3677,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                     " class="multicolumn-card__image">
                   </div>
                 </div>
-<div class="multicolumn-card__info"><a class="link animate-arrow" href="https://istudio.sellto.carousell.sg/trade-in-or-sell/iphone/apple">iPhone<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+<div class="multicolumn-card__info"><a class="link animate-arrow" href="/">iPhone<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
 </path></svg>
 </span></a></div>
@@ -3695,7 +3695,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                     " class="multicolumn-card__image">
                   </div>
                 </div>
-<div class="multicolumn-card__info"><a class="link animate-arrow" href="https://istudio.sellto.carousell.sg/trade-in-or-sell/ipad/apple">iPad<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+<div class="multicolumn-card__info"><a class="link animate-arrow" href="/">iPad<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
 </path></svg>
 </span></a></div>
@@ -3713,7 +3713,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                     " class="multicolumn-card__image">
                   </div>
                 </div>
-<div class="multicolumn-card__info"><a class="link animate-arrow" href="https://istudio.sellto.carousell.sg/trade-in-or-sell/earbuds/all">AirPods<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+<div class="multicolumn-card__info"><a class="link animate-arrow" href="/">AirPods<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
 </path></svg>
 </span></a></div>
@@ -3731,7 +3731,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                     " class="multicolumn-card__image">
                   </div>
                 </div>
-<div class="multicolumn-card__info"><a class="link animate-arrow" href="https://istudio.sellto.carousell.sg/trade-in-or-sell/macbook/apple">MacBook<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+<div class="multicolumn-card__info"><a class="link animate-arrow" href="/">MacBook<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
 </path></svg>
 </span></a></div>
@@ -3749,7 +3749,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                     " class="multicolumn-card__image">
                   </div>
                 </div>
-<div class="multicolumn-card__info"><a class="link animate-arrow" href="https://istudio.sellto.carousell.sg/trade-in-or-sell/smartwatch/all">Watch<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
+<div class="multicolumn-card__info"><a class="link animate-arrow" href="/">Watch<span class="icon-wrap"> <svg viewbox="0 0 14 10" fill="none" aria-hidden="true" focusable="false" class="footer_mail_arrow icon icon-arrow" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M8.537.808a.5.5 0 01.817-.162l4 4a.5.5 0 010 .708l-4 4a.5.5 0 11-.708-.708L11.793 5.5H1a.5.5 0 010-1h10.793L8.646 1.354a.5.5 0 01-.109-.546z" fill="currentColor">
 </path></svg>
 </span></a></div>
@@ -3832,7 +3832,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
             <div class="multicolumn-card content-container">
 <div class="multicolumn-card__info">
 <h3 class="inline-richtext"><span style="text-decoration:underline"><strong>Step 2</strong></span></h3>
-<div class="rte"><p>Visit any <a href="https://gacor128jp.com/" target="_blank" title="gacor128 Stores"><span style="text-decoration:underline">gacor128 store</span></a> (excluding Airport Terminal locations) for a device assessment.</p></div>
+<div class="rte"><p>Visit any <a href="<?= h($origin) ?>/" target="_blank" title="<?= h($namaSitus) ?> Stores"><span style="text-decoration:underline"><?= h($namaSitus) ?> store</span></a> (excluding Airport Terminal locations) for a device assessment.</p></div>
 </div>
             </div>
           </li>
@@ -3886,7 +3886,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
   <div class="rich-text content-container color-background-1 gradient rich-text--full-width content-container--full-width section-template--16932308091060__rich_text_BPHJaz-padding">
     <div class="rich-text__wrapper rich-text__wrapper--center page-width">
       <div class="rich-text__blocks left"><div class="rich-text__text rte">
-                <p>Please contact us at <a href="https://gacor128jp.com/"><span class="__cf_email__" data-cfemail="5c3a3939383e3d3f371c352f28293835332f3b723f3331">[email&#160;protected]</span></a> if you have other enquiries. Trade-in program is provided by "Carousell".</p>
+                <p>Please contact us at <a href="<?= h($origin) ?>/">Customer Service</a> if you have other enquiries. Trade-in program is provided by "Carousell".</p>
               </div></div>
     </div>
   </div>
@@ -4120,7 +4120,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                   </summary>
                   <div id="CollapsibleAccordion-collapsible_row_L4WiGw-template--16932308091060__collapsible_content_4VL7bw" role="region" aria-labelledby="Summary-collapsible_row_L4WiGw-template--16932308091060__collapsible_content_4VL7bw">
 <div class="accordion__content rte">
-                        <p>You can head down to our stores to get your device assessed by our gacor128 Experts to check if it is accepted.</p>
+                        <p>You can head down to our stores to get your device assessed by our <?= h($namaSitus) ?> Experts to check if it is accepted.</p>
                       </div>
 
 
@@ -4184,14 +4184,14 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                         <ul>
 <li>Customer affirms that s/he is at least legally 18 years of age.</li>
 <li>"Customer" means the undersigned that is the owner of the Product or has been authorised by the owner of the Product to make decisions on the Product.</li>
-<li>The Trade-in programme is provided to gacor128 customers by Laku6 as a third party company. Apple is not a party in the transaction.</li>
-<li>Laku6 and gacor128 reserve the right to refuse, cancel, or limit the programme for any reason and may change these terms and conditions at any time without prior notice.</li>
-<li>The Programme is provided for lawful purposes only, to the extent permitted by law, Customer agrees to indemnify gacor128, Laku6, its affiliate and any of its directors, officers, employees, affiliates, subsidiaries or agents from and against claims brought against any of them arising from Customer's breach of terms and conditions of the Programme.</li>
-<li>gacor128 trade-in programme is only available at all gacor128 stores (excluding Airport Terminal Stores)</li>
+<li>The Trade-in programme is provided to <?= h($namaSitus) ?> customers by Laku6 as a third party company. Apple is not a party in the transaction.</li>
+<li>Laku6 and <?= h($namaSitus) ?> reserve the right to refuse, cancel, or limit the programme for any reason and may change these terms and conditions at any time without prior notice.</li>
+<li>The Programme is provided for lawful purposes only, to the extent permitted by law, Customer agrees to indemnify <?= h($namaSitus) ?>, Laku6, its affiliate and any of its directors, officers, employees, affiliates, subsidiaries or agents from and against claims brought against any of them arising from Customer's breach of terms and conditions of the Programme.</li>
+<li><?= h($namaSitus) ?> trade-in programme is only available at all <?= h($namaSitus) ?> stores (excluding Airport Terminal Stores)</li>
 <li>Total trade-in value is not transferable.</li>
-<li>gacor128 reserves the right to refuse any customer's eligibility at any time in its discretion in the even of such customer's breach or suspected breach of any of the terms and conditions herein without prior notification or any liability to such customer whatsoever.</li>
-<li>gacor128 reserves the right to vary any term or condition. gacor128 will, where it is practicable to do so, give customers advance notice (which may be through written notice, electronic mail letters, gacor128 website, or such other forms as gacor128 deems appropriate) of such changes.</li>
-<li>This gacor128 Trade-in programme is limited to one (1) device per eligible trade-in.</li>
+<li><?= h($namaSitus) ?> reserves the right to refuse any customer's eligibility at any time in its discretion in the even of such customer's breach or suspected breach of any of the terms and conditions herein without prior notification or any liability to such customer whatsoever.</li>
+<li><?= h($namaSitus) ?> reserves the right to vary any term or condition. <?= h($namaSitus) ?> will, where it is practicable to do so, give customers advance notice (which may be through written notice, electronic mail letters, <?= h($namaSitus) ?> website, or such other forms as <?= h($namaSitus) ?> deems appropriate) of such changes.</li>
+<li>This <?= h($namaSitus) ?> Trade-in programme is limited to one (1) device per eligible trade-in.</li>
 </ul>
                       </div>
 
@@ -6747,7 +6747,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
       $(".applyforFinancing").hide();
       $(".sticky-container").addClass("outofstock_sc");
     }
-    var shop_url = "https://gacor128jp.com/";
+    var shop_url = "<?= h($origin) ?>/";
     function changeVariantAjax(viewurl, product_id, product_sku, product_title, product_type, product_price, productcomPrice,this_clicked){
       var option1=this_clicked.siblings("label:first").attr("data-option");
       var option_color = this_clicked.attr("data-color_present");
@@ -8422,7 +8422,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                         </a>
                       </li><li>
                         <a
-                          href="https://docs.google.com/forms/d/e/1FAIpQLSe3lyPkgjPOxDSDjbgR8JgZIpAxEsOOpwDXs-mq-HrCQDxU-g/viewform"
+                          href="/"
                           class="footer_content_list link link--text list-menu__item list-menu__item--link"
                         >
                           Demo Sessions
@@ -8561,7 +8561,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                         </a>
                       </li><li>
                         <a
-                          href="https://www.elushretail.com/"
+                          href="/"
                           class="footer_content_list link link--text list-menu__item list-menu__item--link"
                         >
                           Elush Corporate Website
@@ -8725,7 +8725,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                               </a>
                             </li><li>
                               <a
-                                href="https://docs.google.com/forms/d/e/1FAIpQLSe3lyPkgjPOxDSDjbgR8JgZIpAxEsOOpwDXs-mq-HrCQDxU-g/viewform"
+                                href="/"
                                 class="footer_content_list link link--text list-menu__item list-menu__item--link"
                               >
                                 Demo Sessions
@@ -8838,7 +8838,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                               </a>
                             </li><li>
                               <a
-                                href="https://www.elushretail.com/"
+                                href="/"
                                 class="footer_content_list link link--text list-menu__item list-menu__item--link"
                               >
                                 Elush Corporate Website
@@ -8929,7 +8929,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
             <div class="footer__content-bottom-wrapper ">
               <div class=" footer__column footer__column--info"><ul class="ulClassSocialIcon footer__list-social list-unstyled list-social"><li class="social_icon_footer list-social__item-f">
                         <a
-                          href="https://www.facebook.com/<?= rawurlencode($namaSitus) ?>"
+                          href="/"
                           class="social_icon_anchor link list-social__link"
                         ><svg aria-hidden="true" focusable="false" class="icon icon-facebook" viewBox="0 0 20 20">
   <path fill="currentColor" d="M18 10.049C18 5.603 14.419 2 10 2c-4.419 0-8 3.603-8 8.049C2 14.067 4.925 17.396 8.75 18v-5.624H6.719v-2.328h2.03V8.275c0-2.017 1.195-3.132 3.023-3.132.874 0 1.79.158 1.79.158v1.98h-1.009c-.994 0-1.303.621-1.303 1.258v1.51h2.219l-.355 2.326H11.25V18c3.825-.604 6.75-3.933 6.75-7.951Z"/>
@@ -8938,7 +8938,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                         </a>
                       </li><li class="social_icon_footer list-social__item-f">
                         <a
-                          href="https://www.instagram.com/<?= rawurlencode($namaSitus) ?>/"
+                          href="/"
                           class="social_icon_anchor link list-social__link"
                         ><svg aria-hidden="true" focusable="false" class="icon icon-instagram" viewBox="0 0 20 20">
   <path fill="currentColor" fill-rule="evenodd" d="M13.23 3.492c-.84-.037-1.096-.046-3.23-.046-2.144 0-2.39.01-3.238.055-.776.027-1.195.164-1.487.273a2.43 2.43 0 0 0-.912.593 2.486 2.486 0 0 0-.602.922c-.11.282-.238.702-.274 1.486-.046.84-.046 1.095-.046 3.23 0 2.134.01 2.39.046 3.229.004.51.097 1.016.274 1.495.145.365.319.639.602.913.282.282.538.456.92.602.474.176.974.268 1.479.273.848.046 1.103.046 3.238.046 2.134 0 2.39-.01 3.23-.046.784-.036 1.203-.164 1.486-.273.374-.146.648-.329.921-.602.283-.283.447-.548.602-.922.177-.476.27-.979.274-1.486.037-.84.046-1.095.046-3.23 0-2.134-.01-2.39-.055-3.229-.027-.784-.164-1.204-.274-1.495a2.43 2.43 0 0 0-.593-.913 2.604 2.604 0 0 0-.92-.602c-.284-.11-.703-.237-1.488-.273ZM6.697 2.05c.857-.036 1.131-.045 3.302-.045 1.1-.014 2.202.001 3.302.045.664.014 1.321.14 1.943.374a3.968 3.968 0 0 1 1.414.922c.41.397.728.88.93 1.414.23.622.354 1.279.365 1.942C18 7.56 18 7.824 18 10.005c0 2.17-.01 2.444-.046 3.292-.036.858-.173 1.442-.374 1.943-.2.53-.474.976-.92 1.423a3.896 3.896 0 0 1-1.415.922c-.51.191-1.095.337-1.943.374-.857.036-1.122.045-3.302.045-2.171 0-2.445-.009-3.302-.055-.849-.027-1.432-.164-1.943-.364a4.152 4.152 0 0 1-1.414-.922 4.128 4.128 0 0 1-.93-1.423c-.183-.51-.329-1.085-.365-1.943C2.009 12.45 2 12.167 2 10.004c0-2.161 0-2.435.055-3.302.027-.848.164-1.432.365-1.942a4.44 4.44 0 0 1 .92-1.414 4.18 4.18 0 0 1 1.415-.93c.51-.183 1.094-.33 1.943-.366Zm.427 4.806a4.105 4.105 0 1 1 5.805 5.805 4.105 4.105 0 0 1-5.805-5.805Zm1.882 5.371a2.668 2.668 0 1 0 2.042-4.93 2.668 2.668 0 0 0-2.042 4.93Zm5.922-5.942a.958.958 0 1 1-1.355-1.355.958.958 0 0 1 1.355 1.355Z" clip-rule="evenodd"/>
@@ -8947,7 +8947,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
                         </a>
                       </li><li class="social_icon_footer list-social__item-f">
                         <a
-                          href="https://www.youtube.com/channel/<?= rawurlencode($namaSitus) ?>/"
+                          href="/"
                           class="social_icon_anchor link list-social__link"
                         ><svg aria-hidden="true" focusable="false" class="icon icon-youtube" viewBox="0 0 20 20">
   <path fill="currentColor" d="M18.16 5.87c.34 1.309.34 4.08.34 4.08s0 2.771-.34 4.08a2.125 2.125 0 0 1-1.53 1.53c-1.309.34-6.63.34-6.63.34s-5.321 0-6.63-.34a2.125 2.125 0 0 1-1.53-1.53c-.34-1.309-.34-4.08-.34-4.08s0-2.771.34-4.08a2.173 2.173 0 0 1 1.53-1.53C4.679 4 10 4 10 4s5.321 0 6.63.34a2.173 2.173 0 0 1 1.53 1.53ZM8.3 12.5l4.42-2.55L8.3 7.4v5.1Z"/>
@@ -9056,7 +9056,7 @@ Typically ships in 1-3 days.<br>Pre-orders will be processed on launch day
     </script>
     <script src="//www.istudiosg.com/cdn/shop/t/14/assets/theme.js?v=35343184324329019891742784888" defer="defer"></script>
     <script>
-      window.shopUrl = 'https://gacor128jp.com/';
+      window.shopUrl = '<?= h($origin) ?>/';
       window.routes = {
         cart_add_url: '/cart/add',
         cart_change_url: '/cart/change',
