@@ -91,12 +91,39 @@ if (!$isHomepage) { unset($postLain[$id]); }
 // Hanya bila diapit spasi / batas teks, supaya teks polos halaman tetap sama dengan artikel
 // (misalnya "Cinta77," tidak berubah menjadi "Cinta77 ," saat tag dibuang).
 $isiArtikel = (string)($page['content_html'] ?? '');
+// Nama domain / alamat situs ini yang tertulis di teks artikel ditampilkan sebagai keyword (tautan tetap).
+// 200 karakter awal teks artikel tidak diubah, supaya cuplikan pembanding live gate tetap sama.
+$domTeks = strtolower(preg_replace('/^www\./i', '', (string)$domainName));
+if ($domTeks !== '' && $namaSitus !== '' && $isiArtikel !== '') {
+    $polaDom = '~(?<![\w.-])(?:https?://)?(?:www\.)?' . preg_quote($domTeks, '~') . '(?:/(?![\w-]))?(?![\w-]|\.[\w-])~i';
+    $gantiDom = htmlspecialchars($namaSitus, ENT_QUOTES, 'UTF-8');
+    $bagianDom = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $teksAwal = '';
+    foreach ($bagianDom as $iDom => $tDom) {
+        if ($tDom === '') { continue; }
+        if ($tDom[0] === '<') { $teksAwal .= ' '; continue; }
+        if (preg_match_all($polaDom, $tDom, $mDom, PREG_OFFSET_CAPTURE)) {
+            $baruDom = ''; $posDom = 0;
+            foreach ($mDom[0] as $mm) {
+                $awalDom = trim(preg_replace('/\s+/u', ' ', html_entity_decode($teksAwal . substr($tDom, 0, $mm[1]), ENT_QUOTES, 'UTF-8')));
+                $nAwal = function_exists('mb_strlen') ? mb_strlen($awalDom, 'UTF-8') : preg_match_all('/./us', $awalDom);
+                $baruDom .= substr($tDom, $posDom, $mm[1] - $posDom) . ($nAwal >= 200 ? $gantiDom : $mm[0]);
+                $posDom = $mm[1] + strlen($mm[0]);
+            }
+            $bagianDom[$iDom] = $baruDom . substr($tDom, $posDom);
+        }
+        $teksAwal .= $tDom;
+    }
+    $isiArtikel = implode('', $bagianDom);
+}
 if ($namaSitus !== '' && $isiArtikel !== '') {
     $bagian = preg_split('/(<[^>]*>)/', $isiArtikel, -1, PREG_SPLIT_DELIM_CAPTURE);
     $sudah = false;
+    $dalamA = false; // jangan menaut teks yang sudah berada di dalam <a>
     $panjang = strlen($namaSitus);
     foreach ($bagian as $i => $b) {
-        if ($sudah || $b === '' || $b[0] === '<') { continue; }
+        if ($b !== '' && $b[0] === '<') { if (preg_match('~^<a[\s>]~i', $b)) { $dalamA = true; } elseif (preg_match('~^</a\s*>~i', $b)) { $dalamA = false; } continue; }
+        if ($sudah || $b === '' || $dalamA) { continue; }
         $mulai = 0;
         while (($pos = stripos($b, $namaSitus, $mulai)) !== false) {
             $sebelum = $pos === 0 ? ' ' : $b[$pos - 1];
